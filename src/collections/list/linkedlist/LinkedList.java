@@ -2,6 +2,7 @@ package collections.list.linkedlist;
 
 import collections.list.Iterator;
 import collections.list.List;
+import collections.list.ReversedIterator;
 
 public class LinkedList implements List {
 
@@ -91,6 +92,10 @@ public class LinkedList implements List {
     @Override
     public Iterator iterator() {
         return new LinkedListIterator(head);
+    }
+
+    public ReversedIterator reverseIterator() {
+        return new ReversedLinkedListIterator(tail);
     }
 
     @Override

@@ -3,7 +3,6 @@ package collections.list.arraylist;
 import collections.list.Iterator;
 import collections.list.List;
 
-import javax.print.DocFlavor;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
