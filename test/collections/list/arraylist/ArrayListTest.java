@@ -1,17 +1,15 @@
 package collections.list.arraylist;
 
 import collections.list.Iterator;
+import collections.list.ReversedIterator;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ArrayListTest {
-    private static Logger log = LoggerFactory.getLogger(ArrayListTest.class);
 
     @Test
     void dataListStartsWithSize10(){
@@ -19,11 +17,14 @@ public class ArrayListTest {
         ArrayList al = new ArrayList();
 
         //When
-        int size = al.dataList.length;
-
+        int capacity = al.capacity();
+        int size = al.size();
+        
         //Then
-        assertEquals(10, size);
+        assertEquals(10, capacity);
+        assertEquals(0, size);
     }
+
 
     @Test
     void addMethodWorksUpdatesSizeAndStillHave9Slots() {
@@ -35,7 +36,7 @@ public class ArrayListTest {
 
         //Then
         assertEquals(1, al.size());
-        assertEquals(10, al.dataList.length);
+        assertEquals(10, al.capacity());
     }
 
     @Test
@@ -59,7 +60,7 @@ public class ArrayListTest {
 
         //Then
         assertEquals(11, al.size());
-        assertEquals(20, al.dataList.length);
+        assertEquals(20, al.capacity());
     }
 
     @Test
@@ -170,7 +171,7 @@ public class ArrayListTest {
         ArrayList al = new ArrayList(5);
 
         //When
-        int length = al.dataList.length;
+        int length = al.capacity();
 
         //Then
         assertEquals(5, length);
@@ -272,20 +273,6 @@ public class ArrayListTest {
     }
 
     @Test
-    void iteratorReturnsAnIteratorType() {
-        //Given
-        ArrayList al = new ArrayList();
-
-        //When
-        al.add("MOCK DATA 1");
-
-        Iterator it = al.iterator();
-
-        //Then
-        assertEquals("collections.list.arraylist.ArrayList.ArrayListIterator", it.getClass().getCanonicalName());
-    }
-
-    @Test
     void toStringSuccess() {
         //Given
         ArrayList al = new ArrayList();
@@ -296,7 +283,177 @@ public class ArrayListTest {
         String result = al.toString();
 
         //Then
-        assertEquals("ArrayList{" + "size=" + al.size() +", dataList=" + Arrays.toString(al.dataList) +'}', result);
+        assertEquals("ArrayList{" + "size=" + al.size() +", dataList=" + Arrays.toString(al.getDataArray()) +'}', result);
+    }
+
+    @Test
+    void iteratorWorks(){
+        //Given
+        ArrayList al = new ArrayList();
+
+        //When
+        al.add("MOCK DATA 1");
+        al.add("MOCK DATA 2");
+        al.add("MOCK DATA 3");
+        al.add("MOCK DATA 4");
+        al.add("MOCK DATA 5");
+        al.add("MOCK DATA 6");
+        al.add("MOCK DATA 7");
+        al.add("MOCK DATA 8");
+        al.add("MOCK DATA 9");
+        al.add("MOCK DATA 10");
+
+        //Then
+        Iterator it = al.iterator();
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 1", it.next());
+        assertTrue(it.hasNext());
+        
+        assertEquals("MOCK DATA 2", it.next());
+        assertTrue(it.hasNext());
+        
+        assertEquals("MOCK DATA 3", it.next());
+        assertTrue(it.hasNext());
+        
+        assertEquals("MOCK DATA 4", it.next());
+        assertTrue(it.hasNext());
+        
+        assertEquals("MOCK DATA 5", it.next());
+        assertTrue(it.hasNext());
+        
+        assertEquals("MOCK DATA 6", it.next());
+        assertTrue(it.hasNext());
+        
+        assertEquals("MOCK DATA 7", it.next());
+        assertTrue(it.hasNext());
+        
+        assertEquals("MOCK DATA 8", it.next());
+        assertTrue(it.hasNext());
+        
+        assertEquals("MOCK DATA 9", it.next());
+        assertTrue(it.hasNext());
+        
+        assertEquals("MOCK DATA 10", it.next());
+        assertFalse(it.hasNext());
+    }
+
+    @Test
+    void reversedIteratorWorks(){
+        //Given
+        ArrayList al = new ArrayList();
+
+        //When
+        al.add("MOCK DATA 10");
+        al.add("MOCK DATA 9");
+        al.add("MOCK DATA 8");
+        al.add("MOCK DATA 7");
+        al.add("MOCK DATA 6");
+        al.add("MOCK DATA 5");
+        al.add("MOCK DATA 4");
+        al.add("MOCK DATA 3");
+        al.add("MOCK DATA 2");
+        al.add("MOCK DATA 1");
+
+        //Then
+        ReversedIterator it = al.reverseIterator();
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 1", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 2", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 3", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 4", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 5", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 6", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 7", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 8", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 9", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 10", it.previous());
+        assertFalse(it.hasPrevious());
+    }
+
+    @Test
+    void iteratorFailsWhenAttemptingToGetIndexOutOfBounds(){
+        //Given
+        ArrayList al = new ArrayList();
+
+        //When
+        al.add("MOCK DATA 1");
+        al.add("MOCK DATA 2");
+        al.add("MOCK DATA 3");
+        al.add("MOCK DATA 4");
+        al.add("MOCK DATA 5");
+
+        //Then
+        Iterator it = al.iterator();
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 1", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 2", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 3", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 4", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 5", it.next());
+
+        assertThrows(NoSuchElementException.class, () -> it.next());
+    }
+
+    @Test
+    void reversedIteratorFailsWhenAttemptingToGetIndexOutOfBounds(){
+        //Given
+        ArrayList al = new ArrayList();
+
+        //When
+        al.add("MOCK DATA 5");
+        al.add("MOCK DATA 4");
+        al.add("MOCK DATA 3");
+        al.add("MOCK DATA 2");
+        al.add("MOCK DATA 1");
+
+        //Then
+        ReversedIterator it = al.reverseIterator();
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 1", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 2", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 3", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 4", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 5", it.previous());
+
+        assertThrows(NoSuchElementException.class, () -> it.previous());
     }
 
 }

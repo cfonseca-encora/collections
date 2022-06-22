@@ -1,8 +1,12 @@
 package collections.list.linkedlist;
 
 import collections.list.Iterator;
+import collections.list.ReversedIterator;
+import collections.list.arraylist.ArrayList;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -239,7 +243,6 @@ public class LinkedListTest {
         Iterator it = l.iterator();
 
         //Then
-        assertEquals(LinkedListIterator.class, it.getClass());
     }
 
     @Test
@@ -357,26 +360,173 @@ public class LinkedListTest {
     }
 
     @Test
-    void iteratorReturnsAnIteratorObject() {
+    void iteratorWorks(){
         //Given
         LinkedList l = new LinkedList();
 
         //When
-        Class clazz = l.iterator().getClass();
+        l.add("MOCK DATA 1");
+        l.add("MOCK DATA 2");
+        l.add("MOCK DATA 3");
+        l.add("MOCK DATA 4");
+        l.add("MOCK DATA 5");
+        l.add("MOCK DATA 6");
+        l.add("MOCK DATA 7");
+        l.add("MOCK DATA 8");
+        l.add("MOCK DATA 9");
+        l.add("MOCK DATA 10");
 
         //Then
-        assertTrue(clazz == new LinkedListIterator(Mockito.mock(Node.class)).getClass());
+        Iterator it = l.iterator();
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 1", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 2", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 3", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 4", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 5", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 6", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 7", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 8", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 9", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 10", it.next());
+        assertFalse(it.hasNext());
     }
 
     @Test
-    void reverseIteratorReturnsAnIteratorObject() {
+    void reversedIteratorWorks(){
+        //Given
+        LinkedList l = new LinkedList();
+
+        l.add("MOCK DATA 10");
+        l.add("MOCK DATA 9");
+        l.add("MOCK DATA 8");
+        l.add("MOCK DATA 7");
+        l.add("MOCK DATA 6");
+        l.add("MOCK DATA 5");
+        l.add("MOCK DATA 4");
+        l.add("MOCK DATA 3");
+        l.add("MOCK DATA 2");
+        l.add("MOCK DATA 1");
+
+        //When
+        ReversedIterator it = l.reverseIterator();
+
+        //Then
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 1", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 2", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 3", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 4", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 5", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 6", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 7", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 8", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 9", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 10", it.previous());
+        assertFalse(it.hasPrevious());
+    }
+
+    @Test
+    void iteratorFailsWhenAttemptingToGetIndexOutOfBounds(){
         //Given
         LinkedList l = new LinkedList();
 
         //When
-        Class clazz = l.reverseIterator().getClass();
+        l.add("MOCK DATA 1");
+        l.add("MOCK DATA 2");
+        l.add("MOCK DATA 3");
+        l.add("MOCK DATA 4");
+        l.add("MOCK DATA 5");
 
         //Then
-        assertEquals(new ReversedLinkedListIterator(Mockito.mock(Node.class)).getClass(), clazz);
+        Iterator it = l.iterator();
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 1", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 2", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 3", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 4", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 5", it.next());
+
+        assertThrows(NoSuchElementException.class, () -> it.next());
+    }
+
+    @Test
+    void reversedIteratorFailsWhenAttemptingToGetIndexOutOfBounds(){
+        //Given
+        LinkedList l = new LinkedList();
+
+        //When
+        l.add("MOCK DATA 5");
+        l.add("MOCK DATA 4");
+        l.add("MOCK DATA 3");
+        l.add("MOCK DATA 2");
+        l.add("MOCK DATA 1");
+
+        //Then
+        ReversedIterator it = l.reverseIterator();
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 1", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 2", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 3", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 4", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 5", it.previous());
+
+        assertThrows(NoSuchElementException.class, () -> it.previous());
     }
 }
