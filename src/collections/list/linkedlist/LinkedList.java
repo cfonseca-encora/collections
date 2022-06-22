@@ -91,11 +91,39 @@ public class LinkedList implements List {
 
     @Override
     public Iterator iterator() {
-        return new LinkedListIterator(head);
+        return new Iterator() {
+            Node node = head;
+
+            @Override
+            public boolean hasNext() {
+                return node != null;
+            }
+
+            @Override
+            public String next() {
+                Node value = node;
+                node = node.next;
+                return value.data;
+            }
+        };
     }
 
     public ReversedIterator reverseIterator() {
-        return new ReversedLinkedListIterator(tail);
+        return new ReversedIterator() {
+            Node node = tail;
+
+            @Override
+            public boolean hasPrevious() {
+                return node != null;
+            }
+
+            @Override
+            public String previous() {
+                Node value = node;
+                node = node.previous;
+                return value.data;
+            }
+        };
     }
 
     @Override

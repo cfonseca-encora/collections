@@ -2,6 +2,7 @@ package collections.list.arraylist;
 
 import collections.list.Iterator;
 import collections.list.List;
+import collections.list.ReversedIterator;
 
 import java.text.MessageFormat;
 import java.util.Arrays;
@@ -11,7 +12,7 @@ public class ArrayList implements List {
 
     private static final int INITIAL_CAPACITY = 10;
     private int size = 0;
-    String dataList[] = {};
+    private String dataList[] = {};
 
     public ArrayList() {
         dataList = new String[INITIAL_CAPACITY];
@@ -78,7 +79,41 @@ public class ArrayList implements List {
 
     @Override
     public Iterator iterator() {
-        return new ArrayListIterator();
+        return new Iterator() {
+            private int index;
+
+            @Override
+            public boolean hasNext() {
+                return index < size && dataList[index] != null;
+            }
+
+            @Override
+            public String next() {
+                if (!hasNext())
+                    throw new NoSuchElementException("There is no such element next to this position");
+
+                return dataList[index++];
+            }
+        };
+    }
+
+    public ReversedIterator reverseIterator() {
+        return new ReversedIterator() {
+            private int index = size - 1;
+
+            @Override
+            public boolean hasPrevious() {
+                return index >= 0 && dataList[index] != null;
+            }
+
+            @Override
+            public String previous() {
+                if (!hasPrevious())
+                    throw new NoSuchElementException("There is no such element next to this position");
+
+                return dataList[index--];
+            }
+        };
     }
 
     @Override
@@ -91,6 +126,10 @@ public class ArrayList implements List {
         dataList = Arrays.copyOf(dataList, increasedCapacity);
     }
 
+    public int capacity() {
+        return dataList.length;
+    }
+
     @Override
     public String toString() {
         return "ArrayList{" +
@@ -99,21 +138,8 @@ public class ArrayList implements List {
                 '}';
     }
 
-    class ArrayListIterator implements Iterator {
-        private int index;
-        private int size = dataList.length;
-
-
-        @Override
-        public boolean hasNext() {
-            return size - index > 1;
-        }
-        @Override
-        public String next() {
-            if (!hasNext())
-                throw new NoSuchElementException("There is no such element next to this position");
-
-            return dataList[index++];
-        }
+    String[] getDataArray() {
+        return dataList;
     }
+
 }
