@@ -14,7 +14,7 @@ public class ArrayListTest {
     @Test
     void dataListStartsWithSize10(){
         //Given
-        ArrayList al = new ArrayList();
+        ArrayList<String> al = new ArrayList<>();
 
         //When
         int capacity = al.capacity();
@@ -29,7 +29,7 @@ public class ArrayListTest {
     @Test
     void addMethodWorksUpdatesSizeAndStillHave9Slots() {
         //Given
-        ArrayList al = new ArrayList();
+        ArrayList<String> al = new ArrayList<>();
 
         //When
         al.add("MOCK DATA 1");
@@ -42,7 +42,7 @@ public class ArrayListTest {
     @Test
     void addMethodWorksAndResizesItSelf() {
         //Given
-        ArrayList al = new ArrayList();
+        ArrayList<String> al = new ArrayList<>();
 
         //When
         al.add("MOCK DATA 1");
@@ -66,7 +66,7 @@ public class ArrayListTest {
     @Test
     void insertMethodWorksWhenIndexIsMinorThanActualArrayLength() {
         //Given
-        ArrayList al = new ArrayList();
+        ArrayList<String> al = new ArrayList<>();
         al.add("MOCK DATA 1");
         al.add("MOCK DATA 2");
         al.add("MOCK DATA 3");
@@ -88,7 +88,7 @@ public class ArrayListTest {
     @Test
     void insertMethodFailsWhenIndexIsGreaterThanActualArrayLength() {
         //Given
-        ArrayList al = new ArrayList();
+        ArrayList<String> al = new ArrayList<>();
 
         //When
         al.add("MOCK DATA 1");
@@ -109,7 +109,7 @@ public class ArrayListTest {
     @Test
     void insertMethodWorksWhenInsertsAtTheBeginning() {
         //Given
-        ArrayList al = new ArrayList();
+        ArrayList<String> al = new ArrayList<>();
 
         //When
         al.add("MOCK DATA 1");
@@ -132,7 +132,7 @@ public class ArrayListTest {
     @Test
     void insertMethodWorksWhenInsertsAtTheEnd() {
         //Given
-        ArrayList al = new ArrayList();
+        ArrayList<String> al = new ArrayList<>();
 
         //When
         al.add("MOCK DATA 1");
@@ -155,7 +155,7 @@ public class ArrayListTest {
     @Test
     void insertMethodWorksAndUpdatesSize() {
         //Given
-        ArrayList al = new ArrayList();
+        ArrayList<String> al = new ArrayList<>();
 
         //When
         al.add("MOCK DATA 1");
@@ -168,7 +168,7 @@ public class ArrayListTest {
     @Test
     void secondConstructorSetsArraySizeToCustom() {
         //Given
-        ArrayList al = new ArrayList(5);
+        ArrayList<String> al = new ArrayList<>(5);
 
         //When
         int length = al.capacity();
@@ -180,7 +180,7 @@ public class ArrayListTest {
     @Test
     void getAtWorksWhenIndexIsInsideBounds() {
         //Given
-        ArrayList al = new ArrayList();
+        ArrayList<String> al = new ArrayList<>();
 
         //When
         al.add("MOCK DATA 1");
@@ -193,7 +193,7 @@ public class ArrayListTest {
     @Test
     void getAtFailsWhenIndexIsOutOfBounds() {
         //Given
-        ArrayList al = new ArrayList();
+        ArrayList<String> al = new ArrayList<>();
 
         //When
         al.add("MOCK DATA 1");
@@ -205,7 +205,7 @@ public class ArrayListTest {
     @Test
     void setAtWorksWhenIndexIsInsideOfBounds() {
         //Given
-        ArrayList al = new ArrayList();
+        ArrayList<String> al = new ArrayList<>();
 
         //When
         al.add("MOCK DATA 1");
@@ -219,7 +219,7 @@ public class ArrayListTest {
     @Test
     void setAtFailsWhenIndexIsOutOfBounds() {
         //Given
-        ArrayList al = new ArrayList();
+        ArrayList<String> al = new ArrayList<>();
 
         //When
         al.add("MOCK DATA 1");
@@ -231,7 +231,7 @@ public class ArrayListTest {
     @Test
     void removeSuccessWhenIndexIsInsideOfBounds() {
         //Given
-        ArrayList al = new ArrayList();
+        ArrayList<String> al = new ArrayList<>();
 
         //When
         al.add("MOCK DATA 1");
@@ -247,7 +247,7 @@ public class ArrayListTest {
     @Test
     void removeFailsWhenIndexIsOutOfBounds() {
         //Given
-        ArrayList al = new ArrayList();
+        ArrayList<String> al = new ArrayList<>();
 
         //When
         al.add("MOCK DATA 1");
@@ -260,7 +260,7 @@ public class ArrayListTest {
     @Test
     void removeAllSuccess() {
         //Given
-        ArrayList al = new ArrayList();
+        ArrayList<String> al = new ArrayList<>();
 
         //When
         al.add("MOCK DATA 1");
@@ -275,7 +275,7 @@ public class ArrayListTest {
     @Test
     void toStringSuccess() {
         //Given
-        ArrayList al = new ArrayList();
+        ArrayList<String> al = new ArrayList<>();
 
         //When
         al.add("MOCK DATA 1");
@@ -289,7 +289,7 @@ public class ArrayListTest {
     @Test
     void iteratorWorks(){
         //Given
-        ArrayList al = new ArrayList();
+        ArrayList<String> al = new ArrayList<>();
 
         //When
         al.add("MOCK DATA 1");
@@ -304,7 +304,7 @@ public class ArrayListTest {
         al.add("MOCK DATA 10");
 
         //Then
-        Iterator it = al.iterator();
+        Iterator<String> it = al.iterator();
         assertTrue(it.hasNext());
 
         assertEquals("MOCK DATA 1", it.next());
@@ -341,7 +341,7 @@ public class ArrayListTest {
     @Test
     void reversedIteratorWorks(){
         //Given
-        ArrayList al = new ArrayList();
+        ArrayList<String> al = new ArrayList<>();
 
         //When
         al.add("MOCK DATA 10");
@@ -356,7 +356,7 @@ public class ArrayListTest {
         al.add("MOCK DATA 1");
 
         //Then
-        ReversedIterator it = al.reverseIterator();
+        ReversedIterator<String> it = al.reverseIterator();
         assertTrue(it.hasPrevious());
 
         assertEquals("MOCK DATA 1", it.previous());
@@ -393,7 +393,7 @@ public class ArrayListTest {
     @Test
     void iteratorFailsWhenAttemptingToGetIndexOutOfBounds(){
         //Given
-        ArrayList al = new ArrayList();
+        ArrayList<String> al = new ArrayList<>();
 
         //When
         al.add("MOCK DATA 1");
@@ -403,7 +403,7 @@ public class ArrayListTest {
         al.add("MOCK DATA 5");
 
         //Then
-        Iterator it = al.iterator();
+        Iterator<String> it = al.iterator();
         assertTrue(it.hasNext());
 
         assertEquals("MOCK DATA 1", it.next());
@@ -420,13 +420,13 @@ public class ArrayListTest {
 
         assertEquals("MOCK DATA 5", it.next());
 
-        assertThrows(NoSuchElementException.class, () -> it.next());
+        assertThrows(NoSuchElementException.class, it::next);
     }
 
     @Test
     void reversedIteratorFailsWhenAttemptingToGetIndexOutOfBounds(){
         //Given
-        ArrayList al = new ArrayList();
+        ArrayList<String> al = new ArrayList<>();
 
         //When
         al.add("MOCK DATA 5");
@@ -436,7 +436,7 @@ public class ArrayListTest {
         al.add("MOCK DATA 1");
 
         //Then
-        ReversedIterator it = al.reverseIterator();
+        ReversedIterator<String> it = al.reverseIterator();
         assertTrue(it.hasPrevious());
 
         assertEquals("MOCK DATA 1", it.previous());
@@ -453,7 +453,7 @@ public class ArrayListTest {
 
         assertEquals("MOCK DATA 5", it.previous());
 
-        assertThrows(NoSuchElementException.class, () -> it.previous());
+        assertThrows(NoSuchElementException.class, it::previous);
     }
 
 }
