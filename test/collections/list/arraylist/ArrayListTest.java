@@ -476,4 +476,73 @@ public class ArrayListTest {
 
     }
 
+    @Test
+    void testInsert() {
+        //Given
+        ArrayList<String> al = new ArrayList<>();
+        al.add("MOCK DATA 1");
+        al.add("MOCK DATA 2");
+        al.add("MOCK DATA 3");
+        al.add("MOCK DATA 4");
+        al.add("MOCK DATA 5");
+
+        //When
+        al.insert(0, "MOCK DATA 1 REPLACEMENT");
+
+        //Then
+        assertEquals(6, al.size());
+        assertEquals("MOCK DATA 1 REPLACEMENT", al.getAt(0));
+        assertEquals("MOCK DATA 1", al.getAt(1));
+        assertEquals("MOCK DATA 2", al.getAt(2));
+        assertEquals("MOCK DATA 3", al.getAt(3));
+        assertEquals("MOCK DATA 4", al.getAt(4));
+        assertEquals("MOCK DATA 5", al.getAt(5));
+    }
+
+    @Test
+    void testInsert2() {
+        //Given
+        ArrayList<String> al = new ArrayList<>();
+        al.add("MOCK DATA 1");
+        al.add("MOCK DATA 2");
+        al.add("MOCK DATA 3");
+        al.add("MOCK DATA 4");
+        al.add("MOCK DATA 5");
+
+        //When
+        al.insert(5, "MOCK DATA 1 REPLACEMENT");
+
+        //Then
+        assertEquals(6, al.size());
+        assertEquals("MOCK DATA 1", al.getAt(0));
+        assertEquals("MOCK DATA 2", al.getAt(1));
+        assertEquals("MOCK DATA 3", al.getAt(2));
+        assertEquals("MOCK DATA 4", al.getAt(3));
+        assertEquals("MOCK DATA 5", al.getAt(4));
+        assertEquals("MOCK DATA 1 REPLACEMENT", al.getAt(5));
+    }
+
+    @Test
+    void testInsert3() {
+        //Given
+        ArrayList<String> al = new ArrayList<>();
+        al.add("MOCK DATA 1");
+        al.add("MOCK DATA 2");
+        al.add("MOCK DATA 3");
+        al.add("MOCK DATA 4");
+        al.add("MOCK DATA 5");
+
+        //When
+        al.insert(2, "MOCK DATA 1 REPLACEMENT");
+
+        //Then
+        assertEquals(6, al.size());
+        assertEquals("MOCK DATA 1", al.getAt(0));
+        assertEquals("MOCK DATA 2", al.getAt(1));
+        assertEquals("MOCK DATA 1 REPLACEMENT", al.getAt(2));
+        assertEquals("MOCK DATA 3", al.getAt(3));
+        assertEquals("MOCK DATA 4", al.getAt(4));
+        assertEquals("MOCK DATA 5", al.getAt(5));
+    }
+
 }
