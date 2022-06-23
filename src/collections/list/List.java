@@ -1,6 +1,4 @@
-package collections;
-
-import collections.iterator.Iterator;
+package collections.list;
 
 public interface List {
     void add(String data);
