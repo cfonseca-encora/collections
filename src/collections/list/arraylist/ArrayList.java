@@ -15,10 +15,12 @@ public class ArrayList<T> implements List<T> {
     private int size = 0;
     private T[] dataList;
 
+    @SuppressWarnings("unchecked")
     public ArrayList() {
         dataList = (T[])(new Object[INITIAL_CAPACITY]);
     }
 
+    @SuppressWarnings("unchecked")
     public ArrayList(int capacity) {
         dataList = (T[]) (new Object[capacity]);
     }
@@ -48,7 +50,7 @@ public class ArrayList<T> implements List<T> {
         if (index > size || index < 0)
             throw new ArrayIndexOutOfBoundsException();
 
-        return (T) dataList[index];
+        return dataList[index];
     }
 
     @Override
@@ -72,6 +74,7 @@ public class ArrayList<T> implements List<T> {
         size--;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void removeAll() {
         dataList = (T[]) Array.newInstance(Object.class, INITIAL_CAPACITY);
@@ -80,7 +83,7 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new Iterator() {
+        return new Iterator<T>() {
             private int index;
 
             @Override
@@ -93,13 +96,13 @@ public class ArrayList<T> implements List<T> {
                 if (!hasNext())
                     throw new NoSuchElementException("There is no such element next to this position");
 
-                return (T) dataList[index++];
+                return dataList[index++];
             }
         };
     }
 
     public ReversedIterator<T> reverseIterator() {
-        return new ReversedIterator() {
+        return new ReversedIterator<T>() {
             private int index = size - 1;
 
             @Override
@@ -112,7 +115,7 @@ public class ArrayList<T> implements List<T> {
                 if (!hasPrevious())
                     throw new NoSuchElementException("There is no such element next to this position");
 
-                return (T) dataList[index--];
+                return dataList[index--];
             }
         };
     }
@@ -140,7 +143,7 @@ public class ArrayList<T> implements List<T> {
     }
 
     T[] getDataArray() {
-        return (T[]) dataList;
+        return dataList;
     }
 
 }

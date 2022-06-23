@@ -456,4 +456,24 @@ public class ArrayListTest {
         assertThrows(NoSuchElementException.class, it::previous);
     }
 
+    @Test
+    void removeMethodReassignsRemainingDataOnArray() {
+        // Given
+        ArrayList<String> al = new ArrayList<>();
+        al.add("MOCK DATA 1");
+        al.add("MOCK DATA 2");
+        al.add("MOCK DATA 3");
+        al.add("MOCK DATA 4");
+
+        // When
+        al.remove(1);
+
+        // Then
+        assertEquals("MOCK DATA 1", al.getAt(0));
+        assertEquals("MOCK DATA 3", al.getAt(1));
+        assertEquals("MOCK DATA 4", al.getAt(2));
+        assertEquals(3, al.size());
+
+    }
+
 }

@@ -2,9 +2,7 @@ package collections.list.linkedlist;
 
 import collections.list.Iterator;
 import collections.list.ReversedIterator;
-import collections.list.arraylist.ArrayList;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.NoSuchElementException;
 
@@ -87,9 +85,7 @@ public class LinkedListTest {
         l.add("MOCK DATA NODE 2");
 
         //Then
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            l.insert(4, "MOCK DATA NODE 3");
-        });
+        assertThrows(IndexOutOfBoundsException.class, () -> l.insert(4, "MOCK DATA NODE 3"));
     }
 
     @Test
@@ -115,9 +111,7 @@ public class LinkedListTest {
         l.add("MOCK DATA NODE 2");
 
         //Then
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            l.getAt(3);
-        });
+        assertThrows(IndexOutOfBoundsException.class, () -> l.getAt(3));
     }
 
     @Test
@@ -161,13 +155,11 @@ public class LinkedListTest {
 
 
         //Then
-        assertThrows(NullPointerException.class, () -> {
-            l.setAt(2, "MODIFYING MOCK DATA NODE 2");
-        });
+        assertThrows(NullPointerException.class, () -> l.setAt(2, "MODIFYING MOCK DATA NODE 2"));
     }
 
     @Test
-    void removeMethodDeletesSuccesfully() {
+    void removeMethodDeletesSuccessfully() {
         //Given
         LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
@@ -183,7 +175,7 @@ public class LinkedListTest {
     }
 
     @Test
-    void removeMethodDeletesSuccesfullyAtTheBeginning() {
+    void removeMethodDeletesSuccessfullyAtTheBeginning() {
         //Given
         LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
@@ -199,7 +191,7 @@ public class LinkedListTest {
     }
 
     @Test
-    void removeMethodDeletesSuccesfullyAtTheEnd() {
+    void removeMethodDeletesSuccessfullyAtTheEnd() {
         //Given
         LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
@@ -211,9 +203,7 @@ public class LinkedListTest {
         l.remove(3);
 
         //Then
-        assertThrows(NullPointerException.class, () -> {
-            l.getAt(3);
-        });
+        assertThrows(NullPointerException.class, () -> l.getAt(3));
     }
 
     @Test
@@ -234,25 +224,13 @@ public class LinkedListTest {
     }
 
     @Test
-    void iteratorMethodReturnsLinkedListIterator() {
-        //Given
-        LinkedList<String> l = new LinkedList<>();
-        l.add("MOCK DATA NODE 1");
-
-        //When
-        Iterator it = l.iterator();
-
-        //Then
-    }
-
-    @Test
     void iteratorMethodReturnsLinkedListIteratorWithCurrentNodeAsHead() {
         //Given
         LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
 
         //When
-        Iterator it = l.iterator();
+        Iterator<String> it = l.iterator();
 
         //Then
         assertEquals(l.getAt(0), it.next());
@@ -377,7 +355,7 @@ public class LinkedListTest {
         l.add("MOCK DATA 10");
 
         //Then
-        Iterator it = l.iterator();
+        Iterator<String> it = l.iterator();
         assertTrue(it.hasNext());
 
         assertEquals("MOCK DATA 1", it.next());
@@ -428,7 +406,7 @@ public class LinkedListTest {
         l.add("MOCK DATA 1");
 
         //When
-        ReversedIterator it = l.reverseIterator();
+        ReversedIterator<String> it = l.reverseIterator();
 
         //Then
         assertTrue(it.hasPrevious());
@@ -477,7 +455,7 @@ public class LinkedListTest {
         l.add("MOCK DATA 5");
 
         //Then
-        Iterator it = l.iterator();
+        Iterator<String> it = l.iterator();
         assertTrue(it.hasNext());
 
         assertEquals("MOCK DATA 1", it.next());
@@ -510,7 +488,7 @@ public class LinkedListTest {
         l.add("MOCK DATA 1");
 
         //Then
-        ReversedIterator it = l.reverseIterator();
+        ReversedIterator<String> it = l.reverseIterator();
         assertTrue(it.hasPrevious());
 
         assertEquals("MOCK DATA 1", it.previous());
