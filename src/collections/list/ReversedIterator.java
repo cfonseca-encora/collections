@@ -1,6 +1,6 @@
 package collections.list;
 
-public interface ReversedIterator {
+public interface ReversedIterator<T> {
     boolean hasPrevious();
-    String previous();
+    T previous();
 }

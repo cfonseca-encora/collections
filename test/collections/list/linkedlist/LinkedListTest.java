@@ -1,8 +1,10 @@
 package collections.list.linkedlist;
 
 import collections.list.Iterator;
+import collections.list.ReversedIterator;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,7 +13,7 @@ public class LinkedListTest {
     @Test
     void addMethodAddsNewNode() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
 
         //When
         l.add("MOCK DATA");
@@ -23,7 +25,7 @@ public class LinkedListTest {
     @Test
     void addMethodAddsNewNodeAndUpdatesSize() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
 
         //When
         l.add("MOCK DATA NODE 1");
@@ -36,7 +38,7 @@ public class LinkedListTest {
     @Test
     void insertMethodAddsNewNodeAtAssignedPositionAndUpdatesSize() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
 
@@ -52,7 +54,7 @@ public class LinkedListTest {
     @Test
     void insertMethodAtTheBeginningIsCorrect(){
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
         //When
@@ -64,7 +66,7 @@ public class LinkedListTest {
     @Test
     void insertMethodAtTheEndIsCorrect(){
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
         //When
@@ -76,22 +78,20 @@ public class LinkedListTest {
     @Test
     void insertMethodCrashesWhenGivingIndexOutOfBounds() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
 
         //When
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
 
         //Then
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            l.insert(4, "MOCK DATA NODE 3");
-        });
+        assertThrows(IndexOutOfBoundsException.class, () -> l.insert(4, "MOCK DATA NODE 3"));
     }
 
     @Test
     void getAtMethodReturnsCorrectIndex() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
 
         //When
         l.add("MOCK DATA NODE 1");
@@ -104,22 +104,20 @@ public class LinkedListTest {
     @Test
     void getAtCrashesGivenAnIndexOutOfBounds() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
 
         //When
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
 
         //Then
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            l.getAt(3);
-        });
+        assertThrows(IndexOutOfBoundsException.class, () -> l.getAt(3));
     }
 
     @Test
     void setAtReturnsAndSetInTheCorrectIndex() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
         l.add("MOCK DATA NODE 3");
@@ -134,7 +132,7 @@ public class LinkedListTest {
     @Test
     void setAtReturnsAndSetAtTheLastIndex() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
         l.add("MOCK DATA NODE 3");
@@ -149,7 +147,7 @@ public class LinkedListTest {
     @Test
     void setAtCrashesWhenGivenIndexOutOfBounds() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
 
         //When
         l.add("MOCK DATA NODE 1");
@@ -157,15 +155,13 @@ public class LinkedListTest {
 
 
         //Then
-        assertThrows(NullPointerException.class, () -> {
-            l.setAt(2, "MODIFYING MOCK DATA NODE 2");
-        });
+        assertThrows(NullPointerException.class, () -> l.setAt(2, "MODIFYING MOCK DATA NODE 2"));
     }
 
     @Test
-    void removeMethodDeletesSuccesfully() {
+    void removeMethodDeletesSuccessfully() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
         l.add("MOCK DATA NODE 3");
@@ -179,9 +175,9 @@ public class LinkedListTest {
     }
 
     @Test
-    void removeMethodDeletesSuccesfullyAtTheBeginning() {
+    void removeMethodDeletesSuccessfullyAtTheBeginning() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
         l.add("MOCK DATA NODE 3");
@@ -195,9 +191,9 @@ public class LinkedListTest {
     }
 
     @Test
-    void removeMethodDeletesSuccesfullyAtTheEnd() {
+    void removeMethodDeletesSuccessfullyAtTheEnd() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
         l.add("MOCK DATA NODE 3");
@@ -207,15 +203,13 @@ public class LinkedListTest {
         l.remove(3);
 
         //Then
-        assertThrows(NullPointerException.class, () -> {
-            l.getAt(3);
-        });
+        assertThrows(NullPointerException.class, () -> l.getAt(3));
     }
 
     @Test
     void removeAllExecutesCorrectly() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
         l.add("MOCK DATA NODE 3");
@@ -230,26 +224,13 @@ public class LinkedListTest {
     }
 
     @Test
-    void iteratorMethodReturnsLinkedListIterator() {
-        //Given
-        LinkedList l = new LinkedList();
-        l.add("MOCK DATA NODE 1");
-
-        //When
-        Iterator it = l.iterator();
-
-        //Then
-        assertEquals(LinkedListIterator.class, it.getClass());
-    }
-
-    @Test
     void iteratorMethodReturnsLinkedListIteratorWithCurrentNodeAsHead() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
 
         //When
-        Iterator it = l.iterator();
+        Iterator<String> it = l.iterator();
 
         //Then
         assertEquals(l.getAt(0), it.next());
@@ -258,7 +239,7 @@ public class LinkedListTest {
     @Test
     void sizeUpdatesWhenUsingMethodAdd() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
         int size = l.size();
@@ -273,7 +254,7 @@ public class LinkedListTest {
     @Test
     void sizeUpdatesWhenUsingMethodInsert() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
         int size = l.size();
@@ -288,7 +269,7 @@ public class LinkedListTest {
     @Test
     void sizeUpdatesWhenUsingMethodRemove() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
         int size = l.size();
@@ -303,7 +284,7 @@ public class LinkedListTest {
     @Test
     void sizeUpdatesWhenUsingMethodRemoveAll() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
 
@@ -317,7 +298,7 @@ public class LinkedListTest {
     @Test
     void searchNodeMethodReturnsFirstNode() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
 
         //When
         l.add("MOCK DATA NODE 1");
@@ -331,7 +312,7 @@ public class LinkedListTest {
     @Test
     void searchNodeMethodReturnsLastNode() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
 
         //When
         l.add("MOCK DATA NODE 1");
@@ -345,7 +326,7 @@ public class LinkedListTest {
     @Test
     void toStringReturnsString(){
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
 
         //When
         l.add("MOCK DATA NODE 1");
@@ -357,26 +338,173 @@ public class LinkedListTest {
     }
 
     @Test
-    void iteratorReturnsAnIteratorObject() {
+    void iteratorWorks(){
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
 
         //When
-        Class clazz = l.iterator().getClass();
+        l.add("MOCK DATA 1");
+        l.add("MOCK DATA 2");
+        l.add("MOCK DATA 3");
+        l.add("MOCK DATA 4");
+        l.add("MOCK DATA 5");
+        l.add("MOCK DATA 6");
+        l.add("MOCK DATA 7");
+        l.add("MOCK DATA 8");
+        l.add("MOCK DATA 9");
+        l.add("MOCK DATA 10");
 
         //Then
-        assertTrue(clazz == new LinkedListIterator(Mockito.mock(Node.class)).getClass());
+        Iterator<String> it = l.iterator();
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 1", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 2", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 3", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 4", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 5", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 6", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 7", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 8", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 9", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 10", it.next());
+        assertFalse(it.hasNext());
     }
 
     @Test
-    void reverseIteratorReturnsAnIteratorObject() {
+    void reversedIteratorWorks(){
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
+
+        l.add("MOCK DATA 10");
+        l.add("MOCK DATA 9");
+        l.add("MOCK DATA 8");
+        l.add("MOCK DATA 7");
+        l.add("MOCK DATA 6");
+        l.add("MOCK DATA 5");
+        l.add("MOCK DATA 4");
+        l.add("MOCK DATA 3");
+        l.add("MOCK DATA 2");
+        l.add("MOCK DATA 1");
 
         //When
-        Class clazz = l.reverseIterator().getClass();
+        ReversedIterator<String> it = l.reverseIterator();
 
         //Then
-        assertEquals(new ReversedLinkedListIterator(Mockito.mock(Node.class)).getClass(), clazz);
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 1", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 2", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 3", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 4", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 5", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 6", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 7", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 8", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 9", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 10", it.previous());
+        assertFalse(it.hasPrevious());
+    }
+
+    @Test
+    void iteratorFailsWhenAttemptingToGetIndexOutOfBounds(){
+        //Given
+        LinkedList<String> l = new LinkedList<>();
+
+        //When
+        l.add("MOCK DATA 1");
+        l.add("MOCK DATA 2");
+        l.add("MOCK DATA 3");
+        l.add("MOCK DATA 4");
+        l.add("MOCK DATA 5");
+
+        //Then
+        Iterator<String> it = l.iterator();
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 1", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 2", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 3", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 4", it.next());
+        assertTrue(it.hasNext());
+
+        assertEquals("MOCK DATA 5", it.next());
+
+        assertThrows(NoSuchElementException.class, it::next);
+    }
+
+    @Test
+    void reversedIteratorFailsWhenAttemptingToGetIndexOutOfBounds(){
+        //Given
+        LinkedList<String> l = new LinkedList<>();
+
+        //When
+        l.add("MOCK DATA 5");
+        l.add("MOCK DATA 4");
+        l.add("MOCK DATA 3");
+        l.add("MOCK DATA 2");
+        l.add("MOCK DATA 1");
+
+        //Then
+        ReversedIterator<String> it = l.reverseIterator();
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 1", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 2", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 3", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 4", it.previous());
+        assertTrue(it.hasPrevious());
+
+        assertEquals("MOCK DATA 5", it.previous());
+
+        assertThrows(NoSuchElementException.class, it::previous);
     }
 }

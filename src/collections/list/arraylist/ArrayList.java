@@ -2,27 +2,31 @@ package collections.list.arraylist;
 
 import collections.list.Iterator;
 import collections.list.List;
+import collections.list.ReversedIterator;
 
+import java.lang.reflect.Array;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
-public class ArrayList implements List {
+public class ArrayList<T> implements List<T> {
 
     private static final int INITIAL_CAPACITY = 10;
     private int size = 0;
-    String dataList[] = {};
+    private T[] dataList;
 
+    @SuppressWarnings("unchecked")
     public ArrayList() {
-        dataList = new String[INITIAL_CAPACITY];
+        dataList = (T[])(new Object[INITIAL_CAPACITY]);
     }
 
+    @SuppressWarnings("unchecked")
     public ArrayList(int capacity) {
-        dataList = new String[capacity];
+        dataList = (T[]) (new Object[capacity]);
     }
 
     @Override
-    public void add(String data) {
+    public void add(T data) {
         if (size == dataList.length)
             ensureCapacity();
 
@@ -31,7 +35,7 @@ public class ArrayList implements List {
     }
 
     @Override
-    public void insert(int index, String data) {
+    public void insert(int index, T data) {
         if (size <= index || index < 0)
             throw new ArrayIndexOutOfBoundsException();
 
@@ -42,7 +46,7 @@ public class ArrayList implements List {
     }
 
     @Override
-    public String getAt(int index) {
+    public T getAt(int index) {
         if (index > size || index < 0)
             throw new ArrayIndexOutOfBoundsException();
 
@@ -50,7 +54,7 @@ public class ArrayList implements List {
     }
 
     @Override
-    public void setAt(int index, String data) {
+    public void setAt(int index, T data) {
         if (index > size || index < 0)
             throw new ArrayIndexOutOfBoundsException();
 
@@ -70,15 +74,50 @@ public class ArrayList implements List {
         size--;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void removeAll() {
-        dataList = new String[INITIAL_CAPACITY];
+        dataList = (T[]) Array.newInstance(Object.class, INITIAL_CAPACITY);
         size = 0;
     }
 
     @Override
-    public Iterator iterator() {
-        return new ArrayListIterator();
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            private int index;
+
+            @Override
+            public boolean hasNext() {
+                return index < size && dataList[index] != null;
+            }
+
+            @Override
+            public T next() {
+                if (!hasNext())
+                    throw new NoSuchElementException("There is no such element next to this position");
+
+                return dataList[index++];
+            }
+        };
+    }
+
+    public ReversedIterator<T> reverseIterator() {
+        return new ReversedIterator<T>() {
+            private int index = size - 1;
+
+            @Override
+            public boolean hasPrevious() {
+                return index >= 0 && dataList[index] != null;
+            }
+
+            @Override
+            public T previous() {
+                if (!hasPrevious())
+                    throw new NoSuchElementException("There is no such element next to this position");
+
+                return dataList[index--];
+            }
+        };
     }
 
     @Override
@@ -91,6 +130,10 @@ public class ArrayList implements List {
         dataList = Arrays.copyOf(dataList, increasedCapacity);
     }
 
+    public int capacity() {
+        return dataList.length;
+    }
+
     @Override
     public String toString() {
         return "ArrayList{" +
@@ -99,21 +142,8 @@ public class ArrayList implements List {
                 '}';
     }
 
-    class ArrayListIterator implements Iterator {
-        private int index;
-        private int size = dataList.length;
-
-
-        @Override
-        public boolean hasNext() {
-            return size - index > 1;
-        }
-        @Override
-        public String next() {
-            if (!hasNext())
-                throw new NoSuchElementException("There is no such element next to this position");
-
-            return dataList[index++];
-        }
+    T[] getDataArray() {
+        return dataList;
     }
+
 }
