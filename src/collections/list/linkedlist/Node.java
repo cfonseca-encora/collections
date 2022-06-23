@@ -1,11 +1,11 @@
 package collections.list.linkedlist;
 
-class Node {
-    Node next;
-    Node previous;
-    String data;
+class Node<T> {
+    Node<T> next;
+    Node<T> previous;
+    T data;
 
-    public Node(String data) {
+    public Node(T data) {
         this.data = data;
     }
 }

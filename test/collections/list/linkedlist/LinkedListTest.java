@@ -15,7 +15,7 @@ public class LinkedListTest {
     @Test
     void addMethodAddsNewNode() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
 
         //When
         l.add("MOCK DATA");
@@ -27,7 +27,7 @@ public class LinkedListTest {
     @Test
     void addMethodAddsNewNodeAndUpdatesSize() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
 
         //When
         l.add("MOCK DATA NODE 1");
@@ -40,7 +40,7 @@ public class LinkedListTest {
     @Test
     void insertMethodAddsNewNodeAtAssignedPositionAndUpdatesSize() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
 
@@ -56,7 +56,7 @@ public class LinkedListTest {
     @Test
     void insertMethodAtTheBeginningIsCorrect(){
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
         //When
@@ -68,7 +68,7 @@ public class LinkedListTest {
     @Test
     void insertMethodAtTheEndIsCorrect(){
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
         //When
@@ -80,7 +80,7 @@ public class LinkedListTest {
     @Test
     void insertMethodCrashesWhenGivingIndexOutOfBounds() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
 
         //When
         l.add("MOCK DATA NODE 1");
@@ -95,7 +95,7 @@ public class LinkedListTest {
     @Test
     void getAtMethodReturnsCorrectIndex() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
 
         //When
         l.add("MOCK DATA NODE 1");
@@ -108,7 +108,7 @@ public class LinkedListTest {
     @Test
     void getAtCrashesGivenAnIndexOutOfBounds() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
 
         //When
         l.add("MOCK DATA NODE 1");
@@ -123,7 +123,7 @@ public class LinkedListTest {
     @Test
     void setAtReturnsAndSetInTheCorrectIndex() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
         l.add("MOCK DATA NODE 3");
@@ -138,7 +138,7 @@ public class LinkedListTest {
     @Test
     void setAtReturnsAndSetAtTheLastIndex() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
         l.add("MOCK DATA NODE 3");
@@ -153,7 +153,7 @@ public class LinkedListTest {
     @Test
     void setAtCrashesWhenGivenIndexOutOfBounds() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
 
         //When
         l.add("MOCK DATA NODE 1");
@@ -169,7 +169,7 @@ public class LinkedListTest {
     @Test
     void removeMethodDeletesSuccesfully() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
         l.add("MOCK DATA NODE 3");
@@ -185,7 +185,7 @@ public class LinkedListTest {
     @Test
     void removeMethodDeletesSuccesfullyAtTheBeginning() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
         l.add("MOCK DATA NODE 3");
@@ -201,7 +201,7 @@ public class LinkedListTest {
     @Test
     void removeMethodDeletesSuccesfullyAtTheEnd() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
         l.add("MOCK DATA NODE 3");
@@ -219,7 +219,7 @@ public class LinkedListTest {
     @Test
     void removeAllExecutesCorrectly() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
         l.add("MOCK DATA NODE 3");
@@ -236,7 +236,7 @@ public class LinkedListTest {
     @Test
     void iteratorMethodReturnsLinkedListIterator() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
 
         //When
@@ -248,7 +248,7 @@ public class LinkedListTest {
     @Test
     void iteratorMethodReturnsLinkedListIteratorWithCurrentNodeAsHead() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
 
         //When
@@ -261,7 +261,7 @@ public class LinkedListTest {
     @Test
     void sizeUpdatesWhenUsingMethodAdd() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
         int size = l.size();
@@ -276,7 +276,7 @@ public class LinkedListTest {
     @Test
     void sizeUpdatesWhenUsingMethodInsert() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
         int size = l.size();
@@ -291,7 +291,7 @@ public class LinkedListTest {
     @Test
     void sizeUpdatesWhenUsingMethodRemove() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
         int size = l.size();
@@ -306,7 +306,7 @@ public class LinkedListTest {
     @Test
     void sizeUpdatesWhenUsingMethodRemoveAll() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
 
@@ -320,7 +320,7 @@ public class LinkedListTest {
     @Test
     void searchNodeMethodReturnsFirstNode() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
 
         //When
         l.add("MOCK DATA NODE 1");
@@ -334,7 +334,7 @@ public class LinkedListTest {
     @Test
     void searchNodeMethodReturnsLastNode() {
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
 
         //When
         l.add("MOCK DATA NODE 1");
@@ -348,7 +348,7 @@ public class LinkedListTest {
     @Test
     void toStringReturnsString(){
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
 
         //When
         l.add("MOCK DATA NODE 1");
@@ -362,7 +362,7 @@ public class LinkedListTest {
     @Test
     void iteratorWorks(){
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
 
         //When
         l.add("MOCK DATA 1");
@@ -414,7 +414,7 @@ public class LinkedListTest {
     @Test
     void reversedIteratorWorks(){
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
 
         l.add("MOCK DATA 10");
         l.add("MOCK DATA 9");
@@ -467,7 +467,7 @@ public class LinkedListTest {
     @Test
     void iteratorFailsWhenAttemptingToGetIndexOutOfBounds(){
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
 
         //When
         l.add("MOCK DATA 1");
@@ -494,13 +494,13 @@ public class LinkedListTest {
 
         assertEquals("MOCK DATA 5", it.next());
 
-        assertThrows(NoSuchElementException.class, () -> it.next());
+        assertThrows(NoSuchElementException.class, it::next);
     }
 
     @Test
     void reversedIteratorFailsWhenAttemptingToGetIndexOutOfBounds(){
         //Given
-        LinkedList l = new LinkedList();
+        LinkedList<String> l = new LinkedList<>();
 
         //When
         l.add("MOCK DATA 5");
@@ -527,6 +527,6 @@ public class LinkedListTest {
 
         assertEquals("MOCK DATA 5", it.previous());
 
-        assertThrows(NoSuchElementException.class, () -> it.previous());
+        assertThrows(NoSuchElementException.class, it::previous);
     }
 }

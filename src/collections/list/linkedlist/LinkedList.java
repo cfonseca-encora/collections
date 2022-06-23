@@ -4,15 +4,17 @@ import collections.list.Iterator;
 import collections.list.List;
 import collections.list.ReversedIterator;
 
-public class LinkedList implements List {
+import java.util.NoSuchElementException;
 
-    private Node head;
-    private Node tail;
+public class LinkedList<T> implements List<T> {
+
+    private Node<T> head;
+    private Node<T> tail;
     private int size;
 
     @Override
-    public void add(String data) {
-        Node currentNode = new Node(data);
+    public void add(T data) {
+        Node<T> currentNode = new Node<T>(data);
         if(head == null) {
             head = currentNode;
             tail = currentNode;
@@ -27,12 +29,12 @@ public class LinkedList implements List {
     }
 
     @Override
-    public void insert(int index, String data) {
+    public void insert(int index, T data) {
         if (index < 0 || index > size)
-            throw new IndexOutOfBoundsException("Index "+index+" is out of the list's boundaries");
+            throw new IndexOutOfBoundsException("Index " + index + " is out of the list's boundaries");
 
-        Node current = searchNode(index);
-        Node newNode = new Node(data);
+        Node<T> current = searchNode(index);
+        Node<T> newNode = new Node(data);
 
         if (index == size - 1)
             tail = newNode;
@@ -50,18 +52,18 @@ public class LinkedList implements List {
     }
 
     @Override
-    public String getAt(int index) {
-        return this.searchNode(index).data;
+    public T getAt(int index) {
+        return (T) this.searchNode(index).data;
     }
 
     @Override
-    public void setAt(int index, String data) {
+    public void setAt(int index, T data) {
         this.searchNode(index).data = data;
     }
 
     @Override
     public void remove(int index) {
-        Node toRemove = searchNode(index);
+        Node<T> toRemove = searchNode(index);
 
         if (index == 0)
             head = toRemove.next;
@@ -90,9 +92,9 @@ public class LinkedList implements List {
     }
 
     @Override
-    public Iterator iterator() {
-        return new Iterator() {
-            Node node = head;
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            Node<T> node = head;
 
             @Override
             public boolean hasNext() {
@@ -100,17 +102,20 @@ public class LinkedList implements List {
             }
 
             @Override
-            public String next() {
-                Node value = node;
+            public T next() {
+                if (!hasNext())
+                    throw new NoSuchElementException("There is no such element next to this position");
+
+                Node<T> value = node;
                 node = node.next;
                 return value.data;
             }
         };
     }
 
-    public ReversedIterator reverseIterator() {
-        return new ReversedIterator() {
-            Node node = tail;
+    public ReversedIterator<T> reverseIterator() {
+        return new ReversedIterator<T>() {
+            Node<T> node = tail;
 
             @Override
             public boolean hasPrevious() {
@@ -118,8 +123,10 @@ public class LinkedList implements List {
             }
 
             @Override
-            public String previous() {
-                Node value = node;
+            public T previous() {
+                if (!hasPrevious())
+                    throw new NoSuchElementException("There is no such element previous to this position");
+                Node<T> value = node;
                 node = node.previous;
                 return value.data;
             }
@@ -131,12 +138,12 @@ public class LinkedList implements List {
         return size;
     }
 
-    Node searchNode(int index) {
+    Node<T> searchNode(int index) {
         if(index < 0 || index > size)
             throw new IndexOutOfBoundsException("Index " + index + " is out of the list's boundaries");
 
         int currentIndex = 0;
-        Node current = head;
+        Node<T> current = head;
 
         while(current != null && currentIndex < index) {
             currentIndex++;
@@ -149,20 +156,20 @@ public class LinkedList implements List {
     @Override
     public String toString() {
 
-        String result = "LinkedList{";
+        StringBuilder result = new StringBuilder("LinkedList{");
 
-        Node current = head;
+        Node<T> current = head;
         int index = 0;
 
         while(current != null && index < size) {
-            result += "node["+ (index) +"]: (contentClass=" + current.data.getClass() + ") " + current.data + ", ";
+            result.append("node[").append(index).append("]: (contentClass=").append(current.data.getClass()).append(") ").append(current.data).append(", ");
 
             current = current.next;
             index++;
         }
 
-        result += "}";
+        result.append("}");
 
-        return result;
+        return result.toString();
     }
 }

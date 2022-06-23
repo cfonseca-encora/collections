@@ -4,26 +4,27 @@ import collections.list.Iterator;
 import collections.list.List;
 import collections.list.ReversedIterator;
 
+import java.lang.reflect.Array;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
-public class ArrayList implements List {
+public class ArrayList<T> implements List<T> {
 
     private static final int INITIAL_CAPACITY = 10;
     private int size = 0;
-    private String dataList[] = {};
+    private T[] dataList;
 
     public ArrayList() {
-        dataList = new String[INITIAL_CAPACITY];
+        dataList = (T[])(new Object[INITIAL_CAPACITY]);
     }
 
     public ArrayList(int capacity) {
-        dataList = new String[capacity];
+        dataList = (T[]) (new Object[capacity]);
     }
 
     @Override
-    public void add(String data) {
+    public void add(T data) {
         if (size == dataList.length)
             ensureCapacity();
 
@@ -32,7 +33,7 @@ public class ArrayList implements List {
     }
 
     @Override
-    public void insert(int index, String data) {
+    public void insert(int index, T data) {
         if (size <= index || index < 0)
             throw new ArrayIndexOutOfBoundsException();
 
@@ -43,15 +44,15 @@ public class ArrayList implements List {
     }
 
     @Override
-    public String getAt(int index) {
+    public T getAt(int index) {
         if (index > size || index < 0)
             throw new ArrayIndexOutOfBoundsException();
 
-        return dataList[index];
+        return (T) dataList[index];
     }
 
     @Override
-    public void setAt(int index, String data) {
+    public void setAt(int index, T data) {
         if (index > size || index < 0)
             throw new ArrayIndexOutOfBoundsException();
 
@@ -73,12 +74,12 @@ public class ArrayList implements List {
 
     @Override
     public void removeAll() {
-        dataList = new String[INITIAL_CAPACITY];
+        dataList = (T[]) Array.newInstance(Object.class, INITIAL_CAPACITY);
         size = 0;
     }
 
     @Override
-    public Iterator iterator() {
+    public Iterator<T> iterator() {
         return new Iterator() {
             private int index;
 
@@ -88,16 +89,16 @@ public class ArrayList implements List {
             }
 
             @Override
-            public String next() {
+            public T next() {
                 if (!hasNext())
                     throw new NoSuchElementException("There is no such element next to this position");
 
-                return dataList[index++];
+                return (T) dataList[index++];
             }
         };
     }
 
-    public ReversedIterator reverseIterator() {
+    public ReversedIterator<T> reverseIterator() {
         return new ReversedIterator() {
             private int index = size - 1;
 
@@ -107,11 +108,11 @@ public class ArrayList implements List {
             }
 
             @Override
-            public String previous() {
+            public T previous() {
                 if (!hasPrevious())
                     throw new NoSuchElementException("There is no such element next to this position");
 
-                return dataList[index--];
+                return (T) dataList[index--];
             }
         };
     }
@@ -138,8 +139,8 @@ public class ArrayList implements List {
                 '}';
     }
 
-    String[] getDataArray() {
-        return dataList;
+    T[] getDataArray() {
+        return (T[]) dataList;
     }
 
 }
