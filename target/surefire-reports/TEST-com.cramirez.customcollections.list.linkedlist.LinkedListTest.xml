@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.cramirez.customcollections.list.linkedlist.LinkedListTest" time="0" tests="0" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="gopherProxySet" value="false"/>
+    <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="sun.cpu.isalist" value=""/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/cristian.fonseca/java-review/collections/target/test-classes:/Users/cristian.fonseca/java-review/collections/target/classes:/Users/cristian.fonseca/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.8.2/junit-jupiter-api-5.8.2.jar:/Users/cristian.fonseca/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/cristian.fonseca/.m2/repository/org/junit/platform/junit-platform-commons/1.8.2/junit-platform-commons-1.8.2.jar:/Users/cristian.fonseca/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/cristian.fonseca/.m2/repository/org/apache/logging/log4j/log4j-api/2.7/log4j-api-2.7.jar:/Users/cristian.fonseca/.m2/repository/org/apache/logging/log4j/log4j-core/2.7/log4j-core-2.7.jar:/Users/cristian.fonseca/.m2/repository/org/apache/logging/log4j/log4j-slf4j-impl/2.7/log4j-slf4j-impl-2.7.jar:/Users/cristian.fonseca/.m2/repository/org/slf4j/slf4j-api/1.7.21/slf4j-api-1.7.21.jar:"/>
+    <property name="java.vm.vendor" value="Homebrew"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="user.timezone" value=""/>
+    <property name="user.country.format" value="MX"/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="user.country" value="419"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.boot.library.path" value="/usr/local/homebrew/Cellar/openjdk@8/1.8.0+322/libexec/openjdk.jdk/Contents/Home/jre/lib"/>
+    <property name="sun.java.command" value="/Users/cristian.fonseca/java-review/collections/target/surefire/surefirebooter7190648681214343153.jar /Users/cristian.fonseca/java-review/collections/target/surefire 2022-06-27T09-35-34_763-jvmRun1 surefire2772222634643052123tmp surefire_03424341905054338322tmp"/>
+    <property name="surefire.test.class.path" value="/Users/cristian.fonseca/java-review/collections/target/test-classes:/Users/cristian.fonseca/java-review/collections/target/classes:/Users/cristian.fonseca/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.8.2/junit-jupiter-api-5.8.2.jar:/Users/cristian.fonseca/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/cristian.fonseca/.m2/repository/org/junit/platform/junit-platform-commons/1.8.2/junit-platform-commons-1.8.2.jar:/Users/cristian.fonseca/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/cristian.fonseca/.m2/repository/org/apache/logging/log4j/log4j-api/2.7/log4j-api-2.7.jar:/Users/cristian.fonseca/.m2/repository/org/apache/logging/log4j/log4j-core/2.7/log4j-core-2.7.jar:/Users/cristian.fonseca/.m2/repository/org/apache/logging/log4j/log4j-slf4j-impl/2.7/log4j-slf4j-impl-2.7.jar:/Users/cristian.fonseca/.m2/repository/org/slf4j/slf4j-api/1.7.21/slf4j-api-1.7.21.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/cristian.fonseca"/>
+    <property name="user.language" value="es"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.home" value="/usr/local/homebrew/Cellar/openjdk@8/1.8.0+322/libexec/openjdk.jdk/Contents/Home/jre"/>
+    <property name="basedir" value="/Users/cristian.fonseca/java-review/collections"/>
+    <property name="file.separator" value="/"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment"/>
+    <property name="surefire.real.class.path" value="/Users/cristian.fonseca/java-review/collections/target/surefire/surefirebooter7190648681214343153.jar"/>
+    <property name="sun.boot.class.path" value="/usr/local/homebrew/Cellar/openjdk@8/1.8.0+322/libexec/openjdk.jdk/Contents/Home/jre/lib/resources.jar:/usr/local/homebrew/Cellar/openjdk@8/1.8.0+322/libexec/openjdk.jdk/Contents/Home/jre/lib/rt.jar:/usr/local/homebrew/Cellar/openjdk@8/1.8.0+322/libexec/openjdk.jdk/Contents/Home/jre/lib/sunrsasign.jar:/usr/local/homebrew/Cellar/openjdk@8/1.8.0+322/libexec/openjdk.jdk/Contents/Home/jre/lib/jsse.jar:/usr/local/homebrew/Cellar/openjdk@8/1.8.0+322/libexec/openjdk.jdk/Contents/Home/jre/lib/jce.jar:/usr/local/homebrew/Cellar/openjdk@8/1.8.0+322/libexec/openjdk.jdk/Contents/Home/jre/lib/charsets.jar:/usr/local/homebrew/Cellar/openjdk@8/1.8.0+322/libexec/openjdk.jdk/Contents/Home/jre/lib/jfr.jar:/usr/local/homebrew/Cellar/openjdk@8/1.8.0+322/libexec/openjdk.jdk/Contents/Home/jre/classes"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="1.8.0_322-bre_2022_02_28_15_01-b00"/>
+    <property name="user.name" value="cristian.fonseca"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="12.1"/>
+    <property name="java.endorsed.dirs" value="/usr/local/homebrew/Cellar/openjdk@8/1.8.0+322/libexec/openjdk.jdk/Contents/Home/jre/lib/endorsed"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="US-ASCII"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="localRepository" value="/Users/cristian.fonseca/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="java.io.tmpdir" value="/var/folders/_6/lmrx463965qf8hm0y6ts7d7h0000gn/T/"/>
+    <property name="idea.version" value="2022.1"/>
+    <property name="java.version" value="1.8.0_322"/>
+    <property name="user.dir" value="/Users/cristian.fonseca/java-review/collections"/>
+    <property name="os.arch" value="x86_64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="java.awt.printerjob" value="sun.lwawt.macosx.CPrinterJob"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="java.library.path" value="/Users/cristian.fonseca/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.vendor" value="Homebrew"/>
+    <property name="java.vm.version" value="25.322-b00"/>
+    <property name="java.ext.dirs" value="/Users/cristian.fonseca/Library/Java/Extensions:/usr/local/homebrew/Cellar/openjdk@8/1.8.0+322/libexec/openjdk.jdk/Contents/Home/jre/lib/ext:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="java.class.version" value="52.0"/>
+  </properties>
+</testsuite>
