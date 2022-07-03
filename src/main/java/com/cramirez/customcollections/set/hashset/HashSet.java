@@ -1,8 +1,9 @@
-package com.cramirez.customcollections.set;
+package com.cramirez.customcollections.set.hashset;
 
 import com.cramirez.customcollections.iterator.Iterator;
 import com.cramirez.customcollections.iterator.ReversedIterator;
 import com.cramirez.customcollections.list.linkedlist.LinkedList;
+import com.cramirez.customcollections.set.Set;
 
 public class HashSet<E> implements Set<E> {
     private static final int INITIAL_SIZE = 3;
@@ -18,14 +19,7 @@ public class HashSet<E> implements Set<E> {
 
     @Override
     public boolean add(E object) {
-        int hash = calculateHash(object);
-
-        if (data[hash] == null) {
-            data[hash] = new LinkedList<>();
-            data[hash].add(object);
-            size++;
-            return true;
-        }
+        int hash = calculateHashAndAssurePosition(object);
 
         if(data[hash].size() == REARRANGE_LIMIT) {
             hash = rearrangeSet(object);
@@ -46,16 +40,26 @@ public class HashSet<E> implements Set<E> {
 
     @Override
     public void remove(E object) {
-        int hash = calculateHash(object);
+        int hash = calculateHashAndAssurePosition(object);
 
-        data[hash] = null;
+        if(data[hash] == null)
+            return;
 
-        size--;
+        Iterator<E> it = data[hash].iterator();
+        int i = 0;
+        while(it.hasNext()) {
+            E current = it.next();
+            if(object.equals(current)) {
+                size--;
+                data[hash].remove(i);
+            }
+            i++;
+        }
     }
 
     @Override
     public boolean contains(E object) {
-        int hash = calculateHash(object);
+        int hash = calculateHashAndAssurePosition(object);
         Iterator<E> it;
 
         try {
@@ -66,7 +70,7 @@ public class HashSet<E> implements Set<E> {
 
         while(it.hasNext()) {
             E node = it.next();
-            if(node == object)
+            if(node.equals(object))
                 return true;
         }
         return false;
@@ -77,10 +81,14 @@ public class HashSet<E> implements Set<E> {
         return new Iterator<E>() {
             int index;
 
+            int elementCount;
+
             Iterator<E> it;
 
+            E next;
+
             {
-                for(int i = 0; i < size; i++){
+                for(int i = 0; i < size; i++) {
                     if(data[i] != null) {
                         it = data[i].iterator();
                         index = i;
@@ -91,21 +99,49 @@ public class HashSet<E> implements Set<E> {
 
             @Override
             public boolean hasNext() {
-                if(it.hasNext())
-                    return true;
-                return (index + 1 < data.length) && (data[index + 1] != null);
+                if (elementCount == 0 || elementCount==size)
+                    return it.hasNext();
+
+                if (next != null)
+                   return true;
+
+                if (index >= data.length) //(erased "+1" after index in this line in case somethings fails )
+                    return it.hasNext();
+
+                return false;
             }
 
             @Override
             public E next() {
-                if(it.hasNext()){
-                    return it.next();
+
+                if(elementCount == 0 || it.hasNext()) {
+
+                    next = it.next();
+                    if(index + 1 >= data.length && !it.hasNext()) {
+                        E last = next;
+                        next = null;
+                        elementCount++;
+                        index = data.length;
+                        return last;
+                    }
+                    elementCount++;
+                    return next;
                 }
-                if(hasNext()){
-                    it = data[++index].iterator();
-                    return it.next();
+
+                for(int i = index + 1; i < data.length; i++) {
+                    if(data[i] != null) {
+
+                        elementCount++;
+                        index = i;
+                        it = data[index].iterator();
+                        next = it.next();
+                        return next;
+                    }
                 }
-                return null;
+
+                index = data.length;
+                next = null;
+                return next;
             }
         };
     }
@@ -115,10 +151,14 @@ public class HashSet<E> implements Set<E> {
         return new ReversedIterator<E>() {
             int index;
 
+            int elementCount;
+
             ReversedIterator<E> it;
 
+            E next;
+
             {
-                for(int i = data.length - 1; i >= 0; i--){
+                for(int i = data.length - 1; i >= 0; i--) {
                     if(data[i] != null) {
                         it = data[i].reversedIterator();
                         index = i;
@@ -129,23 +169,48 @@ public class HashSet<E> implements Set<E> {
 
             @Override
             public boolean hasNext() {
-                if(it.hasNext())
+                if (elementCount == 0 || elementCount == size)
+                    return it.hasNext();
+
+                if (next != null)
                     return true;
-                if(index == 0)
-                    return false;
-                return (index - 1 < data.length) && (data[index - 1] != null);
+
+                if (index >= 0)
+                    return it.hasNext();
+
+                return false;
             }
 
             @Override
             public E next() {
-                if(it.hasNext()){
-                    return it.next();
+                if(elementCount == 0 || it.hasNext()) {
+                    next = it.next();
+
+                    if(index - 1 <= 0 && !it.hasNext()) {
+                        E last = next;
+                        next = null;
+                        elementCount++;
+                        index = data.length;
+                        return last;
+                    }
+
+                    elementCount++;
+                    return next;
                 }
-                if(hasNext()){
-                    it = data[--index].reversedIterator();
-                    return it.next();
+
+                for(int i = index - 1; i >= 0; i--) {
+                    if(data[i] != null) {
+                        elementCount++;
+                        index = i;
+                        it = data[index].reversedIterator();
+                        next = it.next();
+                        return next;
+                    }
                 }
-                return null;
+
+                index = data.length;
+                next = null;
+                return next;
             }
         };
     }
@@ -165,7 +230,7 @@ public class HashSet<E> implements Set<E> {
 
         for (LinkedList<E> current : dataBackup) {
             if (current == null)
-                break;
+                continue;
 
             Iterator<E> it = current.iterator();
 
@@ -174,7 +239,7 @@ public class HashSet<E> implements Set<E> {
             }
         }
 
-        int hash = calculateHash(object);
+        int hash = calculateHashAndAssurePosition(object);
 
         if(data[hash].size() == REARRANGE_LIMIT) {
             hash = rearrangeSet(object);
@@ -183,12 +248,20 @@ public class HashSet<E> implements Set<E> {
         return hash;
     }
 
-    private int calculateHash(E object) {
+    private int calculateHashAndAssurePosition(E object) {
         int hash = object.hashCode();
 
         if (hash < 0)
             hash = -hash;
 
-        return hash % data.length;
+        hash = hash % data.length;
+
+        if (data[hash] == null) {
+            data[hash] = new LinkedList<>();
+            data[hash].add(object);
+            size++;
+        }
+
+        return hash;
     }
 }

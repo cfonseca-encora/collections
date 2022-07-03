@@ -1,8 +1,8 @@
 package com.cramirez.customcollections.list.linkedlist;
 
-import collections.list.Iterator;
+import com.cramirez.customcollections.iterator.Iterator;
 import collections.list.List;
-import collections.list.ReversedIterator;
+import com.cramirez.customcollections.iterator.ReversedIterator;
 
 import java.util.NoSuchElementException;
 
@@ -113,18 +113,18 @@ public class LinkedList<T> implements List<T> {
         };
     }
 
-    public ReversedIterator<T> reverseIterator() {
+    public ReversedIterator<T> reversedIterator() {
         return new ReversedIterator<T>() {
             Node<T> node = tail;
 
             @Override
-            public boolean hasPrevious() {
+            public boolean hasNext() {
                 return node != null;
             }
 
             @Override
-            public T previous() {
-                if (!hasPrevious())
+            public T next() {
+                if (!hasNext())
                     throw new NoSuchElementException("There is no such element previous to this position");
                 Node<T> value = node;
                 node = node.previous;
@@ -171,5 +171,9 @@ public class LinkedList<T> implements List<T> {
         result.append("}");
 
         return result.toString();
+    }
+
+    public boolean isEmpty() {
+        return size() == 0;
     }
 }

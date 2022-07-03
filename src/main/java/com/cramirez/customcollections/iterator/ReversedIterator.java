@@ -1,6 +1,6 @@
-package com.cramirez.customcollections;
+package com.cramirez.customcollections.iterator;
 
 public interface ReversedIterator<T> {
-    boolean hasPrevious();
-    T previous();
+    boolean hasNext();
+    T next();
 }

@@ -1,7 +1,7 @@
 package com.cramirez.customcollections.list.linkedlist;
 
-import collections.list.Iterator;
-import collections.list.ReversedIterator;
+import com.cramirez.customcollections.iterator.Iterator;
+import com.cramirez.customcollections.iterator.ReversedIterator;
 import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;
@@ -406,40 +406,40 @@ public class LinkedListTest {
         l.add("MOCK DATA 1");
 
         //When
-        ReversedIterator<String> it = l.reverseIterator();
+        ReversedIterator<String> it = l.reversedIterator();
 
         //Then
-        assertTrue(it.hasPrevious());
+        assertTrue(it.hasNext());
 
-        assertEquals("MOCK DATA 1", it.previous());
-        assertTrue(it.hasPrevious());
+        assertEquals("MOCK DATA 1", it.next());
+        assertTrue(it.hasNext());
 
-        assertEquals("MOCK DATA 2", it.previous());
-        assertTrue(it.hasPrevious());
+        assertEquals("MOCK DATA 2", it.next());
+        assertTrue(it.hasNext());
 
-        assertEquals("MOCK DATA 3", it.previous());
-        assertTrue(it.hasPrevious());
+        assertEquals("MOCK DATA 3", it.next());
+        assertTrue(it.hasNext());
 
-        assertEquals("MOCK DATA 4", it.previous());
-        assertTrue(it.hasPrevious());
+        assertEquals("MOCK DATA 4", it.next());
+        assertTrue(it.hasNext());
 
-        assertEquals("MOCK DATA 5", it.previous());
-        assertTrue(it.hasPrevious());
+        assertEquals("MOCK DATA 5", it.next());
+        assertTrue(it.hasNext());
 
-        assertEquals("MOCK DATA 6", it.previous());
-        assertTrue(it.hasPrevious());
+        assertEquals("MOCK DATA 6", it.next());
+        assertTrue(it.hasNext());
 
-        assertEquals("MOCK DATA 7", it.previous());
-        assertTrue(it.hasPrevious());
+        assertEquals("MOCK DATA 7", it.next());
+        assertTrue(it.hasNext());
 
-        assertEquals("MOCK DATA 8", it.previous());
-        assertTrue(it.hasPrevious());
+        assertEquals("MOCK DATA 8", it.next());
+        assertTrue(it.hasNext());
 
-        assertEquals("MOCK DATA 9", it.previous());
-        assertTrue(it.hasPrevious());
+        assertEquals("MOCK DATA 9", it.next());
+        assertTrue(it.hasNext());
 
-        assertEquals("MOCK DATA 10", it.previous());
-        assertFalse(it.hasPrevious());
+        assertEquals("MOCK DATA 10", it.next());
+        assertFalse(it.hasNext());
     }
 
     @Test
@@ -488,23 +488,31 @@ public class LinkedListTest {
         l.add("MOCK DATA 1");
 
         //Then
-        ReversedIterator<String> it = l.reverseIterator();
-        assertTrue(it.hasPrevious());
+        ReversedIterator<String> it = l.reversedIterator();
+        assertTrue(it.hasNext());
 
-        assertEquals("MOCK DATA 1", it.previous());
-        assertTrue(it.hasPrevious());
+        assertEquals("MOCK DATA 1", it.next());
+        assertTrue(it.hasNext());
 
-        assertEquals("MOCK DATA 2", it.previous());
-        assertTrue(it.hasPrevious());
+        assertEquals("MOCK DATA 2", it.next());
+        assertTrue(it.hasNext());
 
-        assertEquals("MOCK DATA 3", it.previous());
-        assertTrue(it.hasPrevious());
+        assertEquals("MOCK DATA 3", it.next());
+        assertTrue(it.hasNext());
 
-        assertEquals("MOCK DATA 4", it.previous());
-        assertTrue(it.hasPrevious());
+        assertEquals("MOCK DATA 4", it.next());
+        assertTrue(it.hasNext());
 
-        assertEquals("MOCK DATA 5", it.previous());
+        assertEquals("MOCK DATA 5", it.next());
 
-        assertThrows(NoSuchElementException.class, it::previous);
+        assertThrows(NoSuchElementException.class, it::next);
+    }
+
+    @Test
+    void isEmpty() {
+        LinkedList<String> ll = new LinkedList<>();
+        assertTrue(ll.isEmpty());
+        ll.add("MOCK DATA 1");
+        assertFalse(ll.isEmpty());
     }
 }

@@ -1,5 +1,7 @@
 package collections.list;
 
+import com.cramirez.customcollections.iterator.Iterator;
+
 public interface List<T> {
     void add(T data);
     void insert(int index, T data);
@@ -7,6 +9,6 @@ public interface List<T> {
     void setAt(int index, T data);
     void remove(int index);
     void removeAll();
-    collections.list.Iterator<T> iterator();
+    Iterator<T> iterator();
     int size();
 }

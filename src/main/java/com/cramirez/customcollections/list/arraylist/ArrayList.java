@@ -1,8 +1,8 @@
 package com.cramirez.customcollections.list.arraylist;
 
-import collections.list.Iterator;
+import com.cramirez.customcollections.iterator.Iterator;
 import collections.list.List;
-import collections.list.ReversedIterator;
+import com.cramirez.customcollections.iterator.ReversedIterator;
 
 import java.lang.reflect.Array;
 import java.text.MessageFormat;
@@ -112,13 +112,13 @@ public class ArrayList<T> implements List<T> {
             private int index = size - 1;
 
             @Override
-            public boolean hasPrevious() {
+            public boolean hasNext() {
                 return index >= 0 && dataList[index] != null;
             }
 
             @Override
-            public T previous() {
-                if (!hasPrevious())
+            public T next() {
+                if (!hasNext())
                     throw new NoSuchElementException("There is no such element next to this position");
 
                 return dataList[index--];
