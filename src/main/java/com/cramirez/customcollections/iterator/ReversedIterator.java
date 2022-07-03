@@ -1,4 +1,4 @@
-package collections.list;
+package com.cramirez.customcollections;
 
 public interface ReversedIterator<T> {
     boolean hasPrevious();
