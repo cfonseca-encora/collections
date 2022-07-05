@@ -89,6 +89,19 @@ public class HashSetTest {
     }
 
     @Test
+    void iteratorWorks2() {
+        //Given
+        HashSet<String> hs = new HashSet<>();
+
+        //When
+        Iterator<String> it = hs.iterator();
+
+
+        //Then
+        assertFalse(it.hasNext());
+    }
+
+    @Test
     void reversedIteratorWorks() {
         //Given
         HashSet<String> hs = new HashSet<>();
@@ -210,7 +223,6 @@ public class HashSetTest {
         ReversedIterator<String> it = hs.reversedIterator();
         while(it.hasNext()) {
             String var = it.next();
-            System.out.println(var);
             assertNotNull(var);
         }
     }

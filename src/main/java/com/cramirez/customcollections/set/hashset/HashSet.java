@@ -6,10 +6,10 @@ import com.cramirez.customcollections.list.linkedlist.LinkedList;
 import com.cramirez.customcollections.set.Set;
 
 public class HashSet<E> implements Set<E> {
-    private static final int INITIAL_SIZE = 3;
-    private static final float INCREMENT_PERCENTAGE = 0.3f;
-    private static final int REARRANGE_LIMIT = 3;
-    private LinkedList<E>[] data;
+    protected static final int INITIAL_SIZE = 3;
+    protected static final float INCREMENT_PERCENTAGE = 0.3f;
+    protected static final int REARRANGE_LIMIT = 3;
+    protected LinkedList<E>[] data;
     private int size;
 
     @SuppressWarnings("unchecked")
@@ -99,49 +99,22 @@ public class HashSet<E> implements Set<E> {
 
             @Override
             public boolean hasNext() {
-                if (elementCount == 0 || elementCount==size)
-                    return it.hasNext();
-
-                if (next != null)
-                   return true;
-
-                if (index >= data.length) //(erased "+1" after index in this line in case somethings fails )
-                    return it.hasNext();
-
-                return false;
+                return elementCount < size;
             }
 
             @Override
             public E next() {
 
-                if(elementCount == 0 || it.hasNext()) {
-
-                    next = it.next();
-                    if(index + 1 >= data.length && !it.hasNext()) {
-                        E last = next;
-                        next = null;
-                        elementCount++;
-                        index = data.length;
-                        return last;
-                    }
-                    elementCount++;
-                    return next;
-                }
-
-                for(int i = index + 1; i < data.length; i++) {
-                    if(data[i] != null) {
-
-                        elementCount++;
-                        index = i;
-                        it = data[index].iterator();
-                        next = it.next();
-                        return next;
+                E value = it.next();
+                elementCount++;
+                if (!it.hasNext()) {
+                    for (int i = index + 1; i < data.length; i++) {
+                        if(data[i] != null) {
+                            it = data[i].iterator();
+                        }
                     }
                 }
-
-                index = data.length;
-                next = null;
-                return next;
+                return value;
             }
         };
     }
@@ -183,34 +156,16 @@ public class HashSet<E> implements Set<E> {
 
             @Override
             public E next() {
-                if(elementCount == 0 || it.hasNext()) {
-                    next = it.next();
-
-                    if(index - 1 <= 0 && !it.hasNext()) {
-                        E last = next;
-                        next = null;
-                        elementCount++;
-                        index = data.length;
-                        return last;
-                    }
-
-                    elementCount++;
-                    return next;
-                }
-
-                for(int i = index - 1; i >= 0; i--) {
-                    if(data[i] != null) {
-                        elementCount++;
-                        index = i;
-                        it = data[index].reversedIterator();
-                        next = it.next();
-                        return next;
+                E value = it.next();
+                elementCount++;
+                if (!it.hasNext()) {
+                    for (int i = index + 1; i < data.length; i++) {
+                        if(data[i] != null) {
+                            it = data[i].reversedIterator();
+                        }
                     }
                 }
-
-                index = data.length;
-                next = null;
-                return next;
+                return value;
             }
         };
     }
@@ -220,8 +175,20 @@ public class HashSet<E> implements Set<E> {
         return size;
     }
 
+    protected void incrementSize() {
+        size++;
+    }
+
+    protected void decrementSize() {
+        size--;
+    }
+
+    protected void restartSize() {
+        size = 0;
+    }
+
     @SuppressWarnings("unchecked")
-    private int rearrangeSet(E object) {
+    protected int rearrangeSet(E object) {
         int incrementIndex = data.length + Math.round((data.length * INCREMENT_PERCENTAGE));
 
         LinkedList<E>[] dataBackup = data;
@@ -235,7 +202,7 @@ public class HashSet<E> implements Set<E> {
             Iterator<E> it = current.iterator();
 
             while (it.hasNext()) {
-                add(it.next());
+                this.add(it.next());
             }
         }
 
@@ -248,7 +215,7 @@ public class HashSet<E> implements Set<E> {
         return hash;
     }
 
-    private int calculateHashAndAssurePosition(E object) {
+    protected int calculateHashAndAssurePosition(E object) {
         int hash = object.hashCode();
 
         if (hash < 0)
@@ -258,8 +225,6 @@ public class HashSet<E> implements Set<E> {
 
         if (data[hash] == null) {
             data[hash] = new LinkedList<>();
-            data[hash].add(object);
-            size++;
         }
 
         return hash;
