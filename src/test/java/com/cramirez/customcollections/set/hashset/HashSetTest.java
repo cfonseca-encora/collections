@@ -86,10 +86,11 @@ public class HashSetTest {
         }
 
         assertFalse(it.hasNext());
+        assertNull(it.next());
     }
 
     @Test
-    void iteratorWorks2() {
+    void iteratorWontHaveAnyNextWhenEmpty() {
         //Given
         HashSet<String> hs = new HashSet<>();
 
@@ -107,7 +108,7 @@ public class HashSetTest {
         HashSet<String> hs = new HashSet<>();
 
         //When
-        for(int i = 0; i < 100; i++) {
+        for(int i = 0; i < 1000; i++) {
             hs.add("MOCK DATA " + i);
         }
 
@@ -117,6 +118,20 @@ public class HashSetTest {
             assertNotNull(it.next());
         }
 
+        assertFalse(it.hasNext());
+        assertNull(it.next());
+    }
+
+    @Test
+    void reversedIteratorWontHaveAnyNextWhenEmpty() {
+        //Given
+        HashSet<String> hs = new HashSet<>();
+
+        //When
+        ReversedIterator<String> it = hs.reversedIterator();
+
+
+        //Then
         assertFalse(it.hasNext());
     }
 
@@ -154,24 +169,19 @@ public class HashSetTest {
     }
 
     @Test
-    void containsWorks() {
+    void containsMethodWorks() {
         //Given
         HashSet<String> hs = new HashSet<>();
 
         //When
-        hs.add("MOCK DATA 1");
-        hs.add("MOCK DATA 2");
-        hs.add("MOCK DATA 3");
-        hs.add("MOCK DATA 4");
-        hs.add("MOCK DATA 5");
-        hs.add("MOCK DATA 6");
-        hs.add("MOCK DATA 7");
-        hs.add("MOCK DATA 8");
-        hs.add("MOCK DATA 9");
-        hs.add("MOCK DATA 10");
+        for (int i = 1; i <= 1000; i++) {
+            hs.add("MOCK DATA " + i);
+        }
 
         //Then
-        assertTrue(hs.contains("MOCK DATA 1"));
+        for (int i = 1; i <= 1000; i++) {
+            assertTrue(hs.contains("MOCK DATA " + i));
+        }
     }
 
     @Test
@@ -180,19 +190,14 @@ public class HashSetTest {
         HashSet<String> hs = new HashSet<>();
 
         //When
-        hs.add("MOCK DATA 1");
-        hs.add("MOCK DATA 2");
-        hs.add("MOCK DATA 3");
-        hs.add("MOCK DATA 4");
-        hs.add("MOCK DATA 5");
-        hs.add("MOCK DATA 6");
-        hs.add("MOCK DATA 7");
-        hs.add("MOCK DATA 8");
-        hs.add("MOCK DATA 9");
-        hs.add("MOCK DATA 10");
+        for (int i = 1; i <= 1000; i++) {
+            hs.add("MOCK DATA " + i);
+        }
 
         //Then
-        assertFalse(hs.contains("MOCC DATA 1"));
+        for (int i = 1; i <= 10000; i++) {
+            assertFalse(hs.contains("MOCC DATA " + i));
+        }
     }
 
     @Test

@@ -166,6 +166,12 @@ public class LinkedListTest {
         l.add("MOCK DATA NODE 2");
         l.add("MOCK DATA NODE 3");
         l.add("MOCK DATA NODE 4");
+        l.add("MOCK DATA NODE 5");
+        l.add("MOCK DATA NODE 6");
+        l.add("MOCK DATA NODE 7");
+        l.add("MOCK DATA NODE 8");
+        l.add("MOCK DATA NODE 9");
+        l.add("MOCK DATA NODE 10");
 
         //When
         l.remove(1);
@@ -182,6 +188,12 @@ public class LinkedListTest {
         l.add("MOCK DATA NODE 2");
         l.add("MOCK DATA NODE 3");
         l.add("MOCK DATA NODE 4");
+        l.add("MOCK DATA NODE 5");
+        l.add("MOCK DATA NODE 6");
+        l.add("MOCK DATA NODE 7");
+        l.add("MOCK DATA NODE 8");
+        l.add("MOCK DATA NODE 9");
+        l.add("MOCK DATA NODE 10");
 
         //When
         l.remove(0);
@@ -198,12 +210,18 @@ public class LinkedListTest {
         l.add("MOCK DATA NODE 2");
         l.add("MOCK DATA NODE 3");
         l.add("MOCK DATA NODE 4");
+        l.add("MOCK DATA NODE 5");
+        l.add("MOCK DATA NODE 6");
+        l.add("MOCK DATA NODE 7");
+        l.add("MOCK DATA NODE 8");
+        l.add("MOCK DATA NODE 9");
+        l.add("MOCK DATA NODE 10");
 
         //When
-        l.remove(3);
+        l.remove(9);
 
         //Then
-        assertThrows(NullPointerException.class, () -> l.getAt(3));
+        assertThrows(NullPointerException.class, () -> l.getAt(9));
     }
 
     @Test
@@ -272,6 +290,14 @@ public class LinkedListTest {
         LinkedList<String> l = new LinkedList<>();
         l.add("MOCK DATA NODE 1");
         l.add("MOCK DATA NODE 2");
+        l.add("MOCK DATA NODE 3");
+        l.add("MOCK DATA NODE 4");
+        l.add("MOCK DATA NODE 5");
+        l.add("MOCK DATA NODE 6");
+        l.add("MOCK DATA NODE 7");
+        l.add("MOCK DATA NODE 8");
+        l.add("MOCK DATA NODE 9");
+        l.add("MOCK DATA NODE 10");
         int size = l.size();
 
         //When

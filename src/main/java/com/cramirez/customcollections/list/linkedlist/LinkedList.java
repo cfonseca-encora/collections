@@ -14,7 +14,7 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public void add(T data) {
-        Node<T> currentNode = new Node<T>(data);
+        Node<T> currentNode = new Node<>(data);
         if(head == null) {
             head = currentNode;
             tail = currentNode;
@@ -34,7 +34,7 @@ public class LinkedList<T> implements List<T> {
             throw new IndexOutOfBoundsException("Index " + index + " is out of the list's boundaries");
 
         Node<T> current = searchNode(index);
-        Node<T> newNode = new Node(data);
+        Node<T> newNode = new Node<>(data);
 
         if (index == size - 1)
             tail = newNode;
@@ -53,7 +53,7 @@ public class LinkedList<T> implements List<T> {
 
     @Override
     public T getAt(int index) {
-        return (T) this.searchNode(index).data;
+        return this.searchNode(index).data;
     }
 
     @Override

@@ -74,8 +74,7 @@ public class ArrayList<T> implements List<T> {
 
         dataList[index] = null;
 
-        for (int i = index; i < size - 1; i++)
-            dataList[i] = dataList[i + 1];
+        if (size - 1 - index >= 0) System.arraycopy(dataList, index + 1, dataList, index, size - 1 - index);
 
         size--;
     }
