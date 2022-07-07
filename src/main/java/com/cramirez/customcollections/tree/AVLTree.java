@@ -6,8 +6,8 @@ import org.jetbrains.annotations.NotNull;
 public class AVLTree<E extends Comparable <E>> {
     private TreeNode<E> root;
 
-    private static final class TreeNode<E> {
-        private final E data;
+    static class TreeNode<E> {
+        private E data;
         private int balance;
         private int height;
         private TreeNode<E> left;
@@ -60,15 +60,56 @@ public class AVLTree<E extends Comparable <E>> {
         while (current != null) {
             TreeNode<E> treeNode = current;
 
-            current = toDelete.compareTo(treeNode.data) >= 0 ? treeNode.right : treeNode.left;
+            int comparative = toDelete.compareTo(treeNode.data);
+            current = (comparative >= 0) ? treeNode.right : treeNode.left;
 
-            if (toDelete.equals(treeNode.data)) {
-                delete(treeNode.data);
+            if (comparative == 0) {
+                delete(treeNode);
                 return true;
             }
         }
 
         return false;
+    }
+
+    private void delete(TreeNode<E> treeNode) {
+        if (treeNode.left == null && treeNode.right == null) {
+            if (treeNode.parent == null) {
+                root = null;
+            } else {
+                TreeNode<E> parent = treeNode.parent;
+
+                if (parent.left.equals(treeNode)) {
+                    parent.left = null;
+                } else {
+                    parent.right = null;
+                }
+
+                setNewBalance(parent);
+            }
+
+            return;
+        }
+
+        if (treeNode.left != null) {
+            TreeNode<E> child = treeNode.left;
+
+            while (child.right != null) {
+                child = child.right;
+            }
+
+            treeNode.data = child.data;
+            delete(child);
+        } else {
+            TreeNode<E> child = treeNode.right;
+
+            while (child.left != null){
+                child = child.left;
+            }
+
+            treeNode.data = child.data;
+            delete(child);
+        }
     }
 
     public boolean contains(E data) {
@@ -80,7 +121,7 @@ public class AVLTree<E extends Comparable <E>> {
             return false;
         }
 
-        if (data == current.data) {
+        if (data.equals(current.data)) {
             return true;
         }
 
@@ -129,7 +170,7 @@ public class AVLTree<E extends Comparable <E>> {
         a.parent = b;
 
         if (b.parent != null) {
-            if (b.parent.right == a) {
+            if (b.parent.right.equals(a)) {
                 b.parent.right = b;
             } else {
                 b.parent.left = b;
@@ -155,7 +196,7 @@ public class AVLTree<E extends Comparable <E>> {
         a.parent = b;
 
         if (b.parent != null) {
-            if (b.parent.right == a) {
+            if (b.parent.right.equals(a)) {
                 b.parent.right = b;
             } else {
                 b.parent.left = b;
