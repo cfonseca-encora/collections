@@ -81,7 +81,8 @@ public class HashSetTest {
 
         //Then
         Iterator<String> it = hs.iterator();
-        while(it.hasNext()) {
+        for(int i = 0; i < 1000; i++) {
+            assertTrue(it.hasNext());
             assertNotNull(it.next());
         }
 
@@ -114,7 +115,8 @@ public class HashSetTest {
 
         //Then
         ReversedIterator<String> it = hs.reversedIterator();
-        while(it.hasNext()) {
+        for(int i = 0; i < 1000; i++) {
+            assertTrue(it.hasNext());
             assertNotNull(it.next());
         }
 
@@ -152,39 +154,6 @@ public class HashSetTest {
     }
 
     @Test
-    void reversedIterator() {
-        //Given
-        HashSet<String> hs = new HashSet<>();
-
-        //When
-        for(int i = 1; i <= 300000; i++) {
-            hs.add("MOCK DATA " + i);
-        }
-
-        //Then
-        ReversedIterator<String> it = hs.reversedIterator();
-        while(it.hasNext()) {
-            assertNotNull(it.next());
-        }
-    }
-
-    @Test
-    void containsMethodWorks() {
-        //Given
-        HashSet<String> hs = new HashSet<>();
-
-        //When
-        for (int i = 1; i <= 1000; i++) {
-            hs.add("MOCK DATA " + i);
-        }
-
-        //Then
-        for (int i = 1; i <= 1000; i++) {
-            assertTrue(hs.contains("MOCK DATA " + i));
-        }
-    }
-
-    @Test
     void containsWontFindAnyUnexistentData() {
         //Given
         HashSet<String> hs = new HashSet<>();
@@ -197,38 +166,6 @@ public class HashSetTest {
         //Then
         for (int i = 1; i <= 10000; i++) {
             assertFalse(hs.contains("MOCC DATA " + i));
-        }
-    }
-
-    @Test
-    void addMethodRearranges() {
-        //Given
-        HashSet<String> hs = new HashSet<>();
-        //When
-        for (int i = 1; i < 100; i++) {
-            hs.add("MOCK DATA " + i);
-        }
-
-        //Then
-        Iterator<String> it = hs.iterator();
-        while(it.hasNext()) {
-            assertNotNull(it.next());
-        }
-    }
-
-    @Test
-    void addMethodRearrangesAssertWithReversedIterator() {
-        //Given
-        HashSet<String> hs = new HashSet<>();
-        //When
-        for (int i = 1; i < 188; i++)
-            hs.add("MOCK DATA " + i);
-
-        //Then
-        ReversedIterator<String> it = hs.reversedIterator();
-        while(it.hasNext()) {
-            String var = it.next();
-            assertNotNull(var);
         }
     }
 }

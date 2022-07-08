@@ -45,22 +45,22 @@ public class HashSet<E> implements Set<E> {
     }
 
     @Override
-    public void remove(E object) {
+    public E remove(E object) {
         int hash = calculateHashAndAssurePosition(object);
-
-        if(data[hash] == null)
-            return;
 
         Iterator<E> it = data[hash].iterator();
         int i = 0;
+        E dataDeleted = null;
         while(it.hasNext()) {
             E current = it.next();
             if(object.equals(current)) {
                 size--;
+                dataDeleted = data[hash].getAt(i);
                 data[hash].remove(i);
             }
             i++;
         }
+        return dataDeleted;
     }
 
     @Override

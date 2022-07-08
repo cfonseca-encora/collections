@@ -24,8 +24,10 @@ public class LinkedHashSet<E> extends HashSet<E> {
     }
 
     @Override
-    public void remove(E object) {
+    public E remove(E object) {
         Iterator<E> it = sortedData.iterator();
+
+        E deletedData = null;
 
         for (int i = 0; i < sortedData.size(); i++) {
             E current = it.next();
@@ -34,9 +36,10 @@ public class LinkedHashSet<E> extends HashSet<E> {
                 continue;
 
             sortedData.remove(i);
-            super.remove(object);
+            deletedData = super.remove(object);
             break;
         }
+        return deletedData;
     }
 
     @Override

@@ -1,10 +1,16 @@
-package com.cramirez.customcollections.tree;
+package com.cramirez.customcollections.set.treeset;
 
 import com.cramirez.customcollections.iterator.Iterator;
+import com.cramirez.customcollections.iterator.ReversedIterator;
+import com.cramirez.customcollections.set.Set;
+import com.cramirez.customcollections.stack.Stack;
 import org.jetbrains.annotations.NotNull;
 
-public class AVLTree<E extends Comparable <E>> {
+//Implementation AVL Tree
+public class TreeSet<E extends Comparable <E>> implements Set<E> {
     private TreeNode<E> root;
+
+    private int size;
 
     static class TreeNode<E> {
         private E data;
@@ -20,9 +26,11 @@ public class AVLTree<E extends Comparable <E>> {
         }
     }
 
-    public boolean insert(E data) {
+    @Override
+    public boolean add(E data) {
         if (root == null) {
             root = new TreeNode<>(data, null);
+            size++;
             return true;
         }
 
@@ -42,6 +50,7 @@ public class AVLTree<E extends Comparable <E>> {
                 }
 
                 setNewBalance(parent);
+                size++;
 
                 return true;
             }
@@ -50,10 +59,9 @@ public class AVLTree<E extends Comparable <E>> {
         return false;
     }
 
-    public boolean delete(E toDelete) {
-        if (root == null) {
-            return false;
-        }
+
+    @Override
+    public E remove(E toDelete) {
 
         TreeNode<E> current = root;
 
@@ -64,12 +72,14 @@ public class AVLTree<E extends Comparable <E>> {
             current = (comparative >= 0) ? treeNode.right : treeNode.left;
 
             if (comparative == 0) {
+                E object = treeNode.data;
                 delete(treeNode);
-                return true;
+                size--;
+                return object;
             }
         }
 
-        return false;
+        return null;
     }
 
     private void delete(TreeNode<E> treeNode) {
@@ -79,7 +89,7 @@ public class AVLTree<E extends Comparable <E>> {
             } else {
                 TreeNode<E> parent = treeNode.parent;
 
-                if (parent.left.equals(treeNode)) {
+                if (parent.left != null && parent.left.equals(treeNode)) {
                     parent.left = null;
                 } else {
                     parent.right = null;
@@ -91,25 +101,24 @@ public class AVLTree<E extends Comparable <E>> {
             return;
         }
 
+        TreeNode<E> child;
         if (treeNode.left != null) {
-            TreeNode<E> child = treeNode.left;
+            child = treeNode.left;
 
             while (child.right != null) {
                 child = child.right;
             }
 
-            treeNode.data = child.data;
-            delete(child);
         } else {
-            TreeNode<E> child = treeNode.right;
+            child = treeNode.right;
 
             while (child.left != null){
                 child = child.left;
             }
 
-            treeNode.data = child.data;
-            delete(child);
         }
+        treeNode.data = child.data;
+        delete(child);
     }
 
     public boolean contains(E data) {
@@ -170,7 +179,7 @@ public class AVLTree<E extends Comparable <E>> {
         a.parent = b;
 
         if (b.parent != null) {
-            if (b.parent.right.equals(a)) {
+            if (b.parent.right != null && b.parent.right.equals(a)) {
                 b.parent.right = b;
             } else {
                 b.parent.left = b;
@@ -242,15 +251,84 @@ public class AVLTree<E extends Comparable <E>> {
     public Iterator<E> iterator() {
         return new Iterator<E>() {
 
+            TreeNode<E> current = root;
+            final Stack<TreeNode<E>> stack;
+
+            {
+                stack = new Stack<>();
+
+                while (current != null) {
+                    stack.push(current);
+                    current = current.left;
+                }
+            }
+
             @Override
             public boolean hasNext() {
-                return false;
+                return !stack.isEmpty();
             }
 
             @Override
             public E next() {
-                return null;
+                TreeNode<E> node = stack.pop();
+                E result = node.data;
+
+                if (node.right != null) {
+                    node = node.right;
+
+                    while (node != null) {
+                        stack.push(node);
+                        node = node.left;
+                    }
+                }
+
+                return result;
             }
         };
+    }
+
+    @Override
+    public ReversedIterator<E> reversedIterator() {
+        return new ReversedIterator<E>() {
+
+            TreeNode<E> current = root;
+            final Stack<TreeNode<E>> stack;
+
+            {
+                stack = new Stack<>();
+
+                while (current != null) {
+                    stack.push(current);
+                    current = current.right;
+                }
+            }
+
+            @Override
+            public boolean hasNext() {
+                return !stack.isEmpty();
+            }
+
+            @Override
+            public E next() {
+                TreeNode<E> node = stack.pop();
+                E result = node.data;
+
+                if (node.left != null) {
+                    node = node.left;
+
+                    while (node != null) {
+                        stack.push(node);
+                        node = node.right;
+                    }
+                }
+
+                return result;
+            }
+        };
+    }
+
+    @Override
+    public int size() {
+        return size;
     }
 }
