@@ -1,91 +1,108 @@
-package com.cramirez.customcollections.set.hashset;
+package com.cramirez.customcollections.map.hashmap;
 
 import com.cramirez.customcollections.iterator.Iterator;
 import com.cramirez.customcollections.iterator.ReversedIterator;
 import com.cramirez.customcollections.list.linkedlist.LinkedList;
-import com.cramirez.customcollections.set.Set;
+import com.cramirez.customcollections.map.Map;
 
 import java.util.NoSuchElementException;
 
-public class HashSet<E> implements Set<E> {
-    protected static final int INITIAL_SIZE = 3;
-    protected static final float INCREMENT_PERCENTAGE = 0.3f;
-    protected static final int REARRANGE_LIMIT = 3;
-    protected LinkedList<E>[] data;
+public class HashMap<K, V> implements Map<K, V> {
+
+    LinkedList<Entry<K,V>>[] data;
+
     private int size;
+    private static final int INITIAL_SIZE = 3;
+    private static final int REARRANGE_LIMIT = 3;
+    private static final float INCREMENT_PERCENTAGE = 0.3f;
+
 
     @SuppressWarnings("unchecked")
-    public HashSet() {
-        data = (LinkedList<E>[]) new LinkedList[INITIAL_SIZE];
+    public HashMap() {
+        data = (LinkedList<Entry<K,V>>[]) new LinkedList[INITIAL_SIZE];
     }
 
     @Override
-    public boolean add(E object) {
-        return internalAdd(object);
+    public V put(K key, V value) {
+        return internalPut(key, value);
     }
 
-    private boolean internalAdd(E object) {
+    private V internalPut(K key, V value) {
+        Entry<K, V> object = new Entry<>(key, value);
+
         int hash = calculateHashAndAssurePosition(object);
 
         if(data[hash].size() == REARRANGE_LIMIT) {
             hash = rearrangeSet(object);
         }
 
-        Iterator<E> it = data[hash].iterator();
+        Iterator<Entry<K, V>> it = data[hash].iterator();
 
         while(it.hasNext()) {
-            E node = it.next();
-            if(node.equals(object))
-                return false;
+            Entry<K, V> entry = it.next();
+            if(entry.equals(object))
+                return null;
         }
 
         data[hash].add(object);
         size++;
-        return true;
+        return object.getValue();
     }
 
     @Override
-    public E remove(E object) {
-        int hash = calculateHashAndAssurePosition(object);
+    public V get(K key) {
+        Entry<K, V> object = new Entry<>(key);
+        int hash = calculateHash(object);
 
-        Iterator<E> it = data[hash].iterator();
-        int i = 0;
-        E dataDeleted = null;
+        Iterator<Entry<K, V>> it = data[hash].iterator();
+
         while(it.hasNext()) {
-            E current = it.next();
-            if(object.equals(current)) {
-                size--;
-                dataDeleted = data[hash].getAt(i);
+            Entry<K, V> entry = it.next();
+            if(object.equals(entry))
+                return entry.getValue();
+        }
+        return null;
+    }
+
+    @Override
+    public V remove(K key) {
+        Entry<K, V> object = new Entry<>(key);
+        int hash = calculateHash(object);
+
+        if(data[hash] == null)
+            return null;
+
+        Iterator<Entry<K, V>> it = data[hash].iterator();
+        int i = 0;
+        while(it.hasNext()) {
+            Entry<K, V> entry = it.next();
+            if(object.equals(entry)) {
                 data[hash].remove(i);
+                size--;
+                return entry.getValue();
             }
             i++;
         }
-        return dataDeleted;
+        return null;
     }
 
     @Override
-    public boolean contains(E object) {
-        int hash = calculateHashAndAssurePosition(object);
-        Iterator<E> it;
-
-        it = data[hash].iterator();
-
-        while(it.hasNext()) {
-            E node = it.next();
-            if(node.equals(object))
-                return true;
-        }
-        return false;
+    public int size() {
+        return size;
     }
 
     @Override
-    public Iterator<E> iterator() {
-        return new Iterator<E>() {
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public Iterator<Entry<K, V>> iterator() {
+        return new Iterator<Entry<K, V>>() {
             int index;
 
             int elementCount;
 
-            Iterator<E> it;
+            Iterator<Entry<K, V>> it;
 
             {
                 for(int i = 0; i < size; i++) {
@@ -103,13 +120,13 @@ public class HashSet<E> implements Set<E> {
             }
 
             @Override
-            public E next() {
-                E value = null;
+            public Entry<K, V> next() {
+                Entry<K, V> value = null;
                 try {
                     value = it.next();
                     elementCount++;
-                } catch (NoSuchElementException nse) {
-                    if(index + 1 == data.length)
+                } catch (NullPointerException | NoSuchElementException ex) {
+                    if(index == data.length - 1)
                         return null;
                     for (int i = index + 1; i < data.length; i++) {
                         if(data[i] != null) {
@@ -127,14 +144,13 @@ public class HashSet<E> implements Set<E> {
         };
     }
 
-    @Override
-    public ReversedIterator<E> reversedIterator() {
-        return new ReversedIterator<E>() {
+    public ReversedIterator<Entry<K, V>> reversedIterator() {
+        return new ReversedIterator<Entry<K, V>>() {
             int index;
 
             int elementCount;
 
-            ReversedIterator<E> it;
+            ReversedIterator<Entry<K, V>> it;
 
             {
                 for(int i = data.length - 1; i >= 0; i--) {
@@ -152,12 +168,12 @@ public class HashSet<E> implements Set<E> {
             }
 
             @Override
-            public E next() {
-                E value = null;
+            public Entry<K, V> next() {
+                Entry<K, V> value = null;
                 try {
                     value = it.next();
                     elementCount++;
-                } catch (NoSuchElementException nse) {
+                } catch (NullPointerException | NoSuchElementException ex) {
                     if(index == 0)
                         return null;
                     for (int i = index - 1; i >= 0; i--) {
@@ -176,34 +192,30 @@ public class HashSet<E> implements Set<E> {
         };
     }
 
-    @Override
-    public int size() {
-        return size;
-    }
-
     @SuppressWarnings("unchecked")
-    protected int rearrangeSet(E object) {
+    private int rearrangeSet(Entry<K,V> object) {
         int incrementIndex = data.length + Math.round((data.length * INCREMENT_PERCENTAGE));
 
-        LinkedList<E>[] dataBackup = data;
+        LinkedList<Entry<K,V>>[] dataBackup = data;
         size = 0;
-        data = (LinkedList<E>[]) new LinkedList[incrementIndex];
+        data = (LinkedList<Entry<K,V>>[]) new LinkedList[incrementIndex];
 
-        for (LinkedList<E> current : dataBackup) {
+        for (LinkedList<Entry<K,V>> current : dataBackup) {
             if (current == null)
                 continue;
 
-            Iterator<E> it = current.iterator();
+            Iterator<Entry<K,V>> it = current.iterator();
 
             while (it.hasNext()) {
-                this.internalAdd(it.next());
+                Entry<K, V> entry = it.next();
+                this.internalPut(entry.getKey(), entry.getValue());
             }
         }
 
         return calculateHashAndAssurePosition(object);
     }
 
-    protected int calculateHashAndAssurePosition(E object) {
+    private int calculateHashAndAssurePosition(Entry<K, V> object) {
         int hash = calculateHash(object);
 
         if (data[hash] == null) {
@@ -213,7 +225,7 @@ public class HashSet<E> implements Set<E> {
         return hash;
     }
 
-    protected int calculateHash(E object) {
+    private int calculateHash(Entry<K, V> object) {
         int hash = object.hashCode();
 
         if (hash < 0)

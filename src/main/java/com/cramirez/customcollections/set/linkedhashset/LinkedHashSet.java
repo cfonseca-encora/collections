@@ -7,7 +7,7 @@ import com.cramirez.customcollections.set.hashset.HashSet;
 
 public class LinkedHashSet<E> extends HashSet<E> {
 
-    private LinkedList<E> sortedData;
+    private final LinkedList<E> sortedData;
     public LinkedHashSet() {
         super();
         sortedData = new LinkedList<>();

@@ -2,10 +2,7 @@ package com.cramirez.customcollections.set.hashset;
 
 import com.cramirez.customcollections.iterator.Iterator;
 import com.cramirez.customcollections.iterator.ReversedIterator;
-import com.cramirez.customcollections.list.arraylist.ArrayList;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
