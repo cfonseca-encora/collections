@@ -1,6 +1,6 @@
-package com.cramirez.customcollections.map.hashmap;
+package com.cramirez.customcollections.map;
 
-public class Entry<K,V> {
+public class Entry<K, V> {
     private final K key;
     private final V value;
 

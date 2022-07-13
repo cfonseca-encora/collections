@@ -1,10 +1,8 @@
-package com.cramirez.customcollections.map.linkedhashmaptest;
+package com.cramirez.customcollections.map.linkedhashmap;
 
 import com.cramirez.customcollections.iterator.Iterator;
 import com.cramirez.customcollections.iterator.ReversedIterator;
-import com.cramirez.customcollections.map.hashmap.Entry;
-import com.cramirez.customcollections.map.hashmap.HashMap;
-import com.cramirez.customcollections.map.linkedhashmap.LinkedHashMap;
+import com.cramirez.customcollections.map.Entry;
 import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;

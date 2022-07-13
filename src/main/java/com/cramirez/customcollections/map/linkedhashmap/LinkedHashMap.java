@@ -3,7 +3,7 @@ package com.cramirez.customcollections.map.linkedhashmap;
 import com.cramirez.customcollections.iterator.Iterator;
 import com.cramirez.customcollections.iterator.ReversedIterator;
 import com.cramirez.customcollections.list.linkedlist.LinkedList;
-import com.cramirez.customcollections.map.hashmap.Entry;
+import com.cramirez.customcollections.map.Entry;
 import com.cramirez.customcollections.map.hashmap.HashMap;
 
 public class LinkedHashMap<K, V> extends HashMap<K, V> {

@@ -2,6 +2,7 @@ package com.cramirez.customcollections.map.hashmap;
 
 import com.cramirez.customcollections.iterator.Iterator;
 import com.cramirez.customcollections.iterator.ReversedIterator;
+import com.cramirez.customcollections.map.Entry;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -200,6 +201,69 @@ public class HashMapTest {
             assertTrue(key.hashCode() < 0);
         }
 
+    }
+
+    @Test
+    void containsKeyWillReturnTrueWhenSendingExistentKeys() {
+        // Given
+        HashMap<String, String> hm = new HashMap<>();
+
+        // When / Then
+        for(int i = 100; i < 1000; i++) {
+            String key = "MOCK DATA " + i;
+            String value = "MOCK" + i + "MOCK";
+            assertNotNull(hm.put(key, value));
+        }
+
+        assertTrue(hm.containsKey("MOCK DATA 100"));
+        assertTrue(hm.containsKey("MOCK DATA 200"));
+        assertTrue(hm.containsKey("MOCK DATA 300"));
+        assertTrue(hm.containsKey("MOCK DATA 500"));
+        assertTrue(hm.containsKey("MOCK DATA 600"));
+        assertTrue(hm.containsKey("MOCK DATA 700"));
+        assertTrue(hm.containsKey("MOCK DATA 800"));
+        assertTrue(hm.containsKey("MOCK DATA 900"));
+        assertTrue(hm.containsKey("MOCK DATA 999"));
+
+    }
+
+    @Test
+    void containsKeyWillReturnFalseWhenSendingNonExistentKeys() {
+        // Given
+        HashMap<String, String> hm = new HashMap<>();
+
+        // When / Then
+        for(int i = 0; i < 10000; i++) {
+            String key = "MOCK DATA " + i;
+            String value = "MOCK" + i + "MOCK";
+            assertNotNull(hm.put(key, value));
+        }
+
+        for(int i = 10000; i <= 20000; i++) {
+            String searchKey = "MOCK DATA " + i;
+            assertFalse(hm.containsKey(searchKey));
+        }
+
+    }
+
+    @Test
+    void containsValueWillReturnTrueWhenSendingExistentKeys() {
+        // Given
+        HashMap<String, String> hm = new HashMap<>();
+
+        // When / Then
+        for(int i = 0; i < 1000; i++) {
+            String key = "MOCK DATA " + i;
+            String value = "MOCK" + i + "MOCK";
+            assertNotNull(hm.put(key, value));
+        }
+
+        for(int i = 0; i < 1000; i++) {
+            String searchValue = "MOCK" + i + "MOCK";
+            assertTrue(hm.containsValue(searchValue));
+        }
+
+        assertFalse(hm.containsValue("MOCK1000MOCK"));
     }
 
     public static class EntryTest {

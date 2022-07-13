@@ -3,9 +3,11 @@ package com.cramirez.customcollections.map.hashmap;
 import com.cramirez.customcollections.iterator.Iterator;
 import com.cramirez.customcollections.iterator.ReversedIterator;
 import com.cramirez.customcollections.list.linkedlist.LinkedList;
+import com.cramirez.customcollections.map.Entry;
 import com.cramirez.customcollections.map.Map;
 
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class HashMap<K, V> implements Map<K, V> {
 
@@ -94,6 +96,40 @@ public class HashMap<K, V> implements Map<K, V> {
     @Override
     public boolean isEmpty() {
         return size == 0;
+    }
+
+    @Override
+    public boolean containsKey(K key) {
+        Entry<K, V> entry = new Entry<>(key);
+
+        int hash = calculateHash(entry);
+
+        if (data[hash] == null)
+            return false;
+
+        Iterator<Entry<K, V>> it = data[hash].iterator();
+
+        while(it.hasNext()) {
+            Entry<K, V> current = it.next();
+
+            if (key.equals(current.getKey()))
+                return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean containsValue(V value) {
+        Iterator<Entry<K, V>> it = iterator();
+
+        while(it.hasNext()){
+            Entry<K, V> entry = it.next();
+            if(Objects.equals(entry.getValue(), value))
+                return true;
+        }
+
+        return false;
     }
 
     public Iterator<Entry<K, V>> iterator() {
