@@ -93,42 +93,40 @@ public class TreeMap <K extends Comparable<K>, V> implements Map<K, V> {
     }
     
     private void delete(MapNode<K, V> mapNode) {
-        if (mapNode.left == null && mapNode.right == null) {
-            if (mapNode.parent == null) {
-                root = null;
-            } else {
-                MapNode<K, V> parent = mapNode.parent;
 
-                if (parent.left != null && parent.left.entry.getKey().equals(mapNode.entry.getKey())) {
-                    parent.left = null;
-                } else {
-                    parent.right = null;
+        if (mapNode.left == null && mapNode.right == null) {
+            removeLeaf(mapNode);
+        } else {
+            MapNode<K, V> child;
+            if (mapNode.left != null) {
+                child = mapNode.left;
+
+                while (child.right != null) {
+                    child = child.right;
                 }
 
-                setNewBalance(parent);
+            } else {
+                child = mapNode.right;
             }
-
-            return;
+            mapNode.entry = child.entry;
+            removeLeaf(child);
         }
+    }
 
-        MapNode<K, V> child;
-        if (mapNode.left != null) {
-            child = mapNode.left;
-
-            while (child.right != null) {
-                child = child.right;
-            }
-
+    private void removeLeaf(MapNode<K, V> mapNode) {
+        if (mapNode.parent == null) {
+            root = null;
         } else {
-            child = mapNode.right;
+            MapNode<K, V> parent = mapNode.parent;
 
-            while (child.left != null){
-                child = child.left;
+            if (parent.left != null && parent.left.entry.getKey().equals(mapNode.entry.getKey())) {
+                parent.left = null;
+            } else {
+                parent.right = null;
             }
 
+            setNewBalance(parent);
         }
-        mapNode.entry = child.entry;
-        delete(child);
     }
 
     @Override
